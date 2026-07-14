@@ -155,20 +155,25 @@ const handleContinue = () => {
       >
         {floatingItems.map(({ Icon, x, y, delay, size }, index) => (
           <motion.div
-            key={`${x}-${y}-${index}`}
-            initial={{ opacity: 0, scale: 0.75, y: 10 }}
-           animate={{
-           y: [0, -10, 0],
-           rotate: [-3, 3, -3],
-           scale: [1, 1.03, 1],
-            }}
-            transition={{
-            delay,
-            duration: 8 + index * 0.4,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-            }}
+  key={`${x}-${y}-${index}`}
+  initial={{
+    opacity: 0.35,
+    scale: 1,
+    y: 0,
+    rotate: 0,
+  }}
+  animate={{
+    y: [0, -10, 0],
+    rotate: [-3, 3, -3],
+    scale: [1, 1.03, 1],
+  }}
+  transition={{
+    delay,
+    duration: 8 + index * 0.4,
+    repeat: Infinity,
+    repeatType: "mirror",
+    ease: "easeInOut",
+  }}
             style={{
               left: x,
               top: y,
