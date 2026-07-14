@@ -23,99 +23,6 @@ import OnboardingCard from "@/components/onboarding/OnboardingCard";
 const ONBOARDING_STORAGE_KEY = "nase-onboarding-completed";
 const SWIPE_THRESHOLD = 70;
 
-const serviceTiles = [
-  {
-    id: "wallet",
-    label: "Wallet",
-    Icon: Wallet,
-    left: "7%",
-    top: "18%",
-    delay: 0,
-    duration: 8.5,
-    rotate: -2,
-  },
-  {
-    id: "market",
-    label: "Market",
-    Icon: ShoppingBag,
-    left: "76%",
-    top: "14%",
-    delay: 0.4,
-    duration: 9.5,
-    rotate: 2,
-  },
-  {
-    id: "ai",
-    label: "AI",
-    Icon: Bot,
-    left: "42%",
-    top: "5%",
-    delay: 0.8,
-    duration: 10,
-    rotate: -1,
-  },
-  {
-    id: "chat",
-    label: "Chat",
-    Icon: MessageCircle,
-    left: "84%",
-    top: "35%",
-    delay: 0.2,
-    duration: 8,
-    rotate: 2,
-  },
-  {
-    id: "search",
-    label: "Search",
-    Icon: Search,
-    left: "4%",
-    top: "40%",
-    delay: 0.65,
-    duration: 9,
-    rotate: -2,
-  },
-  {
-    id: "gifts",
-    label: "Gifts",
-    Icon: Gift,
-    left: "11%",
-    top: "73%",
-    delay: 0.35,
-    duration: 9.2,
-    rotate: 2,
-  },
-  {
-    id: "orders",
-    label: "Orders",
-    Icon: Package,
-    left: "72%",
-    top: "78%",
-    delay: 0.9,
-    duration: 10.2,
-    rotate: -2,
-  },
-  {
-    id: "support",
-    label: "Support",
-    Icon: Headphones,
-    left: "84%",
-    top: "58%",
-    delay: 0.55,
-    duration: 8.8,
-    rotate: 2,
-  },
-  {
-    id: "security",
-    label: "Secure",
-    Icon: ShieldCheck,
-    left: "27%",
-    top: "88%",
-    delay: 0.15,
-    duration: 9.8,
-    rotate: -1,
-  },
-];
-
 const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 80 : -80,
@@ -148,74 +55,6 @@ type ServiceTileProps = {
   duration: number;
   rotate: number;
 };
-
-function ServiceTile({
-  label,
-  Icon,
-  left,
-  top,
-  delay,
-  duration,
-  rotate,
-}: ServiceTileProps) {
-  return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: 8,
-        scale: 0.92,
-      }}
-      animate={{
-        opacity: 1,
-        y: [0, -7, 0],
-        rotate: [rotate, rotate * -1, rotate],
-        scale: [1, 1.025, 1],
-      }}
-      transition={{
-        opacity: {
-          delay: 0.15 + delay,
-          duration: 0.7,
-          ease: "easeOut",
-        },
-        y: {
-          delay,
-          duration,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-        rotate: {
-          delay,
-          duration: duration + 1.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-        scale: {
-          delay,
-          duration: duration + 0.8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-      }}
-      style={{ left, top }}
-      className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5"
-    >
-      <div className="relative flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-[17px] border border-white/[0.09] bg-gradient-to-b from-white/[0.105] via-white/[0.055] to-white/[0.025] shadow-[0_14px_44px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-xl sm:h-[58px] sm:w-[58px] sm:rounded-[19px]">
-        <div className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-
-        <div className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
-
-        <Icon
-          className="relative z-10 h-[46%] w-[46%] text-white/90 drop-shadow-[0_0_9px_rgba(255,255,255,0.22)]"
-          strokeWidth={1.65}
-        />
-      </div>
-
-      <span className="text-[8px] font-medium tracking-[0.03em] text-white/45 sm:text-[9px]">
-        {label}
-      </span>
-    </motion.div>
-  );
-}
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -323,26 +162,7 @@ export default function WelcomeScreen() {
 
       {/* Fine texture */}
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.13] [background-image:radial-gradient(rgba(255,255,255,0.22)_0.55px,transparent_0.55px)] [background-size:7px_7px]" />
-
-      {/* Floating application icons */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-[5] overflow-hidden"
-      >
-        {serviceTiles.map((tile) => (
-          <ServiceTile
-            key={tile.id}
-            label={tile.label}
-            Icon={tile.Icon}
-            left={tile.left}
-            top={tile.top}
-            delay={tile.delay}
-            duration={tile.duration}
-            rotate={tile.rotate}
-          />
-        ))}
-      </div>
-
+      
       {/* Readability overlays */}
       <div className="pointer-events-none absolute inset-0 -z-[4] bg-black/28" />
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-[3] h-40 bg-gradient-to-b from-black via-black/75 to-transparent" />
