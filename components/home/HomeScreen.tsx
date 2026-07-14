@@ -5,7 +5,7 @@ import TopProducts from "./TopProducts";
 
 export default function HomeScreen() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 pt-8">
+    <main className="mx-auto flex min-h-screen w-full max-w-[430px] flex-col px-6 pt-2">
 
       <Header />
 
