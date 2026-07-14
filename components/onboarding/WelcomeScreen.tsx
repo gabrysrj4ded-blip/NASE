@@ -416,7 +416,7 @@ export default function WelcomeScreen() {
           <div className="relative overflow-hidden rounded-[34px] border border-white/[0.085] bg-gradient-to-b from-white/[0.07] via-white/[0.025] to-white/[0.018] p-[1px] shadow-[0_32px_100px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-[24px]">
             <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
-            <div className="relative overflow-hidden rounded-[33px] bg-black/35">
+            <div className="relative h-[520px] sm:h-[560px] w-full overflow-hidden rounded-[33px] bg-black/35">
               <AnimatePresence
                 initial={false}
                 custom={direction}
