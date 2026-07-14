@@ -157,17 +157,17 @@ const handleContinue = () => {
           <motion.div
             key={`${x}-${y}-${index}`}
             initial={{ opacity: 0, scale: 0.75, y: 10 }}
-            animate={{
-              opacity: [0.14, 0.34, 0.14],
-scale: [1, 1.08, 1],
-y: [0, -12, 0],
-rotate: [-4, 4, -4],
+           animate={{
+           y: [0, -10, 0],
+           rotate: [-3, 3, -3],
+           scale: [1, 1.03, 1],
             }}
             transition={{
-              delay,
-              duration: 5 + index * 0.25,
-              repeat: Infinity,
-              ease: "easeInOut",
+            delay,
+            duration: 8 + index * 0.4,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
             }}
             style={{
               left: x,
