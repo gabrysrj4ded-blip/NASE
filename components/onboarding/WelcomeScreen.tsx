@@ -1,97 +1,235 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { useRouter } from "next/navigation";
 import {
-  Bell,
+  ArrowLeft,
   Bot,
-  CircleHelp,
-  CreditCard,
+  Gift,
   Headphones,
-  Heart,
   MessageCircle,
   Package,
   Search,
-  Settings,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
-  Store,
-  UserRound,
-  Users,
   Wallet,
-  Wifi,
 } from "lucide-react";
 
 import { onboardingSlides } from "@/components/onboarding/data";
 import OnboardingCard from "@/components/onboarding/OnboardingCard";
 
 const ONBOARDING_STORAGE_KEY = "nase-onboarding-completed";
-
 const SWIPE_THRESHOLD = 70;
 
-const floatingIcons = [
-  // ===== TOP =====
-  { Icon: Bot, x: "50%", y: "6%", delay: 0.10, size: 78 },
-  { Icon: ShoppingBag, x: "32%", y: "10%", delay: 0.20, size: 66 },
-  { Icon: Wallet, x: "68%", y: "10%", delay: 0.30, size: 68 },
-  { Icon: Search, x: "40%", y: "16%", delay: 0.40, size: 48 },
-  { Icon: Users, x: "60%", y: "16%", delay: 0.50, size: 50 },
-
-  // ===== LEFT =====
-  { Icon: Store, x: "16%", y: "28%", delay: 0.25, size: 58 },
-  { Icon: CreditCard, x: "12%", y: "44%", delay: 0.35, size: 52 },
-  { Icon: ShieldCheck, x: "16%", y: "60%", delay: 0.45, size: 60 },
-  { Icon: Settings, x: "22%", y: "78%", delay: 0.55, size: 48 },
-
-  // ===== RIGHT =====
-  { Icon: MessageCircle, x: "84%", y: "28%", delay: 0.25, size: 58 },
-  { Icon: Bell, x: "88%", y: "44%", delay: 0.35, size: 52 },
-  { Icon: Headphones, x: "84%", y: "60%", delay: 0.45, size: 60 },
-  { Icon: UserRound, x: "78%", y: "78%", delay: 0.55, size: 48 },
-
-  // ===== BOTTOM =====
-  { Icon: Heart, x: "34%", y: "88%", delay: 0.65, size: 46 },
-  { Icon: Package, x: "50%", y: "92%", delay: 0.75, size: 56 },
-  { Icon: Wifi, x: "66%", y: "88%", delay: 0.85, size: 46 },
-
-  // ===== EXTRA =====
-  { Icon: Sparkles, x: "26%", y: "20%", delay: 0.90, size: 40 },
-  { Icon: CircleHelp, x: "74%", y: "20%", delay: 1.00, size: 40 },
-  { Icon: ShoppingBag, x: "28%", y: "72%", delay: 1.10, size: 40 },
-  { Icon: Wallet, x: "72%", y: "72%", delay: 1.20, size: 40 },
+const serviceTiles = [
+  {
+    id: "wallet",
+    label: "Wallet",
+    Icon: Wallet,
+    left: "7%",
+    top: "18%",
+    delay: 0,
+    duration: 8.5,
+    rotate: -2,
+  },
+  {
+    id: "market",
+    label: "Market",
+    Icon: ShoppingBag,
+    left: "76%",
+    top: "14%",
+    delay: 0.4,
+    duration: 9.5,
+    rotate: 2,
+  },
+  {
+    id: "ai",
+    label: "AI",
+    Icon: Bot,
+    left: "42%",
+    top: "5%",
+    delay: 0.8,
+    duration: 10,
+    rotate: -1,
+  },
+  {
+    id: "chat",
+    label: "Chat",
+    Icon: MessageCircle,
+    left: "84%",
+    top: "35%",
+    delay: 0.2,
+    duration: 8,
+    rotate: 2,
+  },
+  {
+    id: "search",
+    label: "Search",
+    Icon: Search,
+    left: "4%",
+    top: "40%",
+    delay: 0.65,
+    duration: 9,
+    rotate: -2,
+  },
+  {
+    id: "gifts",
+    label: "Gifts",
+    Icon: Gift,
+    left: "11%",
+    top: "73%",
+    delay: 0.35,
+    duration: 9.2,
+    rotate: 2,
+  },
+  {
+    id: "orders",
+    label: "Orders",
+    Icon: Package,
+    left: "72%",
+    top: "78%",
+    delay: 0.9,
+    duration: 10.2,
+    rotate: -2,
+  },
+  {
+    id: "support",
+    label: "Support",
+    Icon: Headphones,
+    left: "84%",
+    top: "58%",
+    delay: 0.55,
+    duration: 8.8,
+    rotate: 2,
+  },
+  {
+    id: "security",
+    label: "Secure",
+    Icon: ShieldCheck,
+    left: "27%",
+    top: "88%",
+    delay: 0.15,
+    duration: 9.8,
+    rotate: -1,
+  },
 ];
 
 const slideVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 90 : -90,
+    x: direction > 0 ? 80 : -80,
     opacity: 0,
-    scale: 0.96,
+    scale: 0.975,
+    filter: "blur(5px)",
   }),
+
   center: {
     x: 0,
     opacity: 1,
     scale: 1,
+    filter: "blur(0px)",
   },
+
   exit: (direction: number) => ({
-    x: direction > 0 ? -90 : 90,
+    x: direction > 0 ? -80 : 80,
     opacity: 0,
-    scale: 0.96,
+    scale: 0.975,
+    filter: "blur(5px)",
   }),
 };
+
+type ServiceTileProps = {
+  label: string;
+  Icon: typeof Wallet;
+  left: string;
+  top: string;
+  delay: number;
+  duration: number;
+  rotate: number;
+};
+
+function ServiceTile({
+  label,
+  Icon,
+  left,
+  top,
+  delay,
+  duration,
+  rotate,
+}: ServiceTileProps) {
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+        y: 8,
+        scale: 0.92,
+      }}
+      animate={{
+        opacity: 1,
+        y: [0, -7, 0],
+        rotate: [rotate, rotate * -1, rotate],
+        scale: [1, 1.025, 1],
+      }}
+      transition={{
+        opacity: {
+          delay: 0.15 + delay,
+          duration: 0.7,
+          ease: "easeOut",
+        },
+        y: {
+          delay,
+          duration,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+        rotate: {
+          delay,
+          duration: duration + 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+        scale: {
+          delay,
+          duration: duration + 0.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+      }}
+      style={{ left, top }}
+      className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5"
+    >
+      <div className="relative flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-[17px] border border-white/[0.09] bg-gradient-to-b from-white/[0.105] via-white/[0.055] to-white/[0.025] shadow-[0_14px_44px_rgba(0,0,0,0.85),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-xl sm:h-[58px] sm:w-[58px] sm:rounded-[19px]">
+        <div className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+
+        <div className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
+
+        <Icon
+          className="relative z-10 h-[46%] w-[46%] text-white/90 drop-shadow-[0_0_9px_rgba(255,255,255,0.22)]"
+          strokeWidth={1.65}
+        />
+      </div>
+
+      <span className="text-[8px] font-medium tracking-[0.03em] text-white/45 sm:text-[9px]">
+        {label}
+      </span>
+    </motion.div>
+  );
+}
 
 export default function WelcomeScreen() {
   const router = useRouter();
 
-  const [[activeIndex, direction], setSlide] = useState<[number, number]>([0, 0]);
+  const [[activeIndex, direction], setSlide] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+
   const [isSkipped, setIsSkipped] = useState(false);
 
   const isLastSlide = activeIndex === onboardingSlides.length - 1;
   const canContinue = isSkipped || isLastSlide;
   const activeSlide = onboardingSlides[activeIndex];
-
-  const floatingItems = useMemo(() => floatingIcons, []);
 
   const goToSlide = (nextIndex: number, nextDirection: number) => {
     if (nextIndex < 0 || nextIndex >= onboardingSlides.length) {
@@ -124,135 +262,212 @@ export default function WelcomeScreen() {
     }
   };
 
+  const handleBack = () => {
+    router.push("/language");
+  };
+
   const handleSkip = () => {
-  localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+    localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
 
-  setIsSkipped(true);
-  setSlide([onboardingSlides.length - 1, 1]);
-};
+    setIsSkipped(true);
+    setSlide([onboardingSlides.length - 1, 1]);
+  };
 
-const handleContinue = () => {
-  if (!canContinue) {
-    return;
-  }
+  const handleContinue = () => {
+    if (!canContinue) {
+      return;
+    }
 
-  localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
-
-  router.replace("/username");
-};
+    localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+    router.replace("/username");
+  };
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black px-4 py-6 sm:px-6">
-      {/* Ambient background */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_48%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(255,255,255,0.045),transparent_55%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.018),transparent_30%,rgba(255,255,255,0.012))]" />
+    <main className="relative isolate flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-black px-4 pb-6 pt-20 sm:px-6 sm:pb-8 sm:pt-24">
+      {/* Deep black base */}
+      <div className="pointer-events-none absolute inset-0 -z-30 bg-black" />
 
-      {/* Floating service icons */}
+      {/* Moving ambient light */}
+      <motion.div
+        aria-hidden="true"
+        animate={{
+          x: ["-16%", "12%", "-16%"],
+          y: ["-8%", "8%", "-8%"],
+          scale: [1, 1.12, 1],
+        }}
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute left-[-18%] top-[-10%] -z-20 h-[54vh] w-[54vh] rounded-full bg-white/[0.045] blur-[100px]"
+      />
+
+      <motion.div
+        aria-hidden="true"
+        animate={{
+          x: ["14%", "-10%", "14%"],
+          y: ["12%", "-8%", "12%"],
+          scale: [1.08, 0.96, 1.08],
+        }}
+        transition={{
+          duration: 26,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="pointer-events-none absolute bottom-[-20%] right-[-22%] -z-20 h-[60vh] w-[60vh] rounded-full bg-white/[0.035] blur-[120px]"
+      />
+
+      {/* Soft central glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-20 h-[62vh] w-[88vw] max-w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.025] blur-[90px]" />
+
+      {/* Fine texture */}
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.13] [background-image:radial-gradient(rgba(255,255,255,0.22)_0.55px,transparent_0.55px)] [background-size:7px_7px]" />
+
+      {/* Floating application icons */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 -z-[5] overflow-hidden"
       >
-        {floatingItems.map(({ Icon, x, y, delay, size }, index) => (
-          <motion.div
-  key={`${x}-${y}-${index}`}
-  initial={{
-    opacity: 0.35,
-    scale: 1,
-    y: 0,
-    rotate: 0,
-  }}
-  animate={{
-    y: [0, -10, 0],
-    rotate: [-3, 3, -3],
-    scale: [1, 1.03, 1],
-  }}
-  transition={{
-    delay,
-    duration: 8 + index * 0.4,
-    repeat: Infinity,
-    repeatType: "mirror",
-    ease: "easeInOut",
-  }}
-            style={{
-              left: x,
-              top: y,
-              width: size,
-              height: size,
-            }}
-            className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[26px] border border-white/10 bg-white/[0.05] shadow-[0_25px_90px_rgba(255,255,255,0.08)] backdrop-blur-2xl"
-          >
-            <Icon
-              className="h-[42%] w-[42%] text-white"
-              strokeWidth={1.35}
-            />
-          </motion.div>
+        {serviceTiles.map((tile) => (
+          <ServiceTile
+            key={tile.id}
+            label={tile.label}
+            Icon={tile.Icon}
+            left={tile.left}
+            top={tile.top}
+            delay={tile.delay}
+            duration={tile.duration}
+            rotate={tile.rotate}
+          />
         ))}
       </div>
 
-      {/* Readability layers */}
-      <div className="pointer-events-none absolute inset-0 bg-black/25" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black via-black/55 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/55 to-transparent" />
+      {/* Readability overlays */}
+      <div className="pointer-events-none absolute inset-0 -z-[4] bg-black/28" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-[3] h-40 bg-gradient-to-b from-black via-black/75 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-[3] h-44 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
-      {/* Skip */}
+      {/* Header controls */}
+      <motion.button
+        type="button"
+        onClick={handleBack}
+        aria-label="Back to language selection"
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          delay: 0.15,
+          duration: 0.5,
+          ease: "easeOut",
+        }}
+        className="absolute left-4 top-5 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.09] bg-white/[0.045] text-white/75 shadow-[0_12px_35px_rgba(0,0,0,0.55)] backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] hover:text-white sm:left-6 sm:top-7"
+      >
+        <ArrowLeft className="h-[17px] w-[17px]" strokeWidth={1.7} />
+      </motion.button>
+
       <motion.button
         type="button"
         onClick={handleSkip}
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.25, duration: 0.5, ease: "easeOut" }}
-        className="absolute right-5 top-5 z-30 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.22em] text-neutral-300 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] sm:right-7 sm:top-7"
+        initial={{ opacity: 0, x: 8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          delay: 0.2,
+          duration: 0.5,
+          ease: "easeOut",
+        }}
+        className="absolute right-4 top-5 z-40 rounded-full border border-white/[0.09] bg-white/[0.045] px-4 py-2.5 text-[10px] font-medium uppercase tracking-[0.25em] text-white/65 shadow-[0_12px_35px_rgba(0,0,0,0.55)] backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] hover:text-white sm:right-6 sm:top-7"
       >
         Skip
       </motion.button>
 
-      {/* Centered onboarding stage */}
-      <section className="relative z-20 flex w-full max-w-[430px] flex-col items-center justify-center">
-        <div className="relative flex w-full items-center justify-center">
-          {/* Neighbor card hints */}
+      {/* Main onboarding area */}
+      <section className="relative z-20 flex w-full max-w-[420px] flex-col items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative w-full"
+        >
+          {/* Top status */}
+          <div className="mb-4 flex items-center justify-center gap-2">
+            <Sparkles
+              className="h-3.5 w-3.5 text-white/35"
+              strokeWidth={1.5}
+            />
+
+            <span className="text-[9px] font-medium uppercase tracking-[0.38em] text-white/35">
+              All in one
+            </span>
+          </div>
+
+          {/* Neighbor card previews */}
           {activeIndex > 0 && (
-            <div className="pointer-events-none absolute left-[-10%] top-1/2 hidden h-[76%] w-[28%] -translate-y-1/2 rounded-[30px] border border-white/8 bg-white/[0.025] opacity-40 blur-[0.2px] min-[420px]:block" />
+            <div className="pointer-events-none absolute left-[-5%] top-[55%] hidden h-[70%] w-[22%] -translate-y-1/2 rounded-[30px] border border-white/[0.055] bg-white/[0.018] opacity-55 blur-[0.3px] min-[410px]:block" />
           )}
 
           {!isLastSlide && (
-            <div className="pointer-events-none absolute right-[-10%] top-1/2 hidden h-[76%] w-[28%] -translate-y-1/2 rounded-[30px] border border-white/8 bg-white/[0.025] opacity-40 blur-[0.2px] min-[420px]:block" />
+            <div className="pointer-events-none absolute right-[-5%] top-[55%] hidden h-[70%] w-[22%] -translate-y-1/2 rounded-[30px] border border-white/[0.055] bg-white/[0.018] opacity-55 blur-[0.3px] min-[410px]:block" />
           )}
 
-          <div className="relative w-full overflow-hidden rounded-[36px]">
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-              <motion.div
-                key={activeSlide.id}
+          {/* Main card frame */}
+          <div className="relative overflow-hidden rounded-[34px] border border-white/[0.085] bg-gradient-to-b from-white/[0.07] via-white/[0.025] to-white/[0.018] p-[1px] shadow-[0_32px_100px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-[24px]">
+            <div className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+
+            <div className="relative overflow-hidden rounded-[33px] bg-black/35">
+              <AnimatePresence
+                initial={false}
                 custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 280, damping: 30 },
-                  opacity: { duration: 0.2 },
-                  scale: { duration: 0.25, ease: "easeOut" },
-                }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.16}
-                onDragEnd={handleDragEnd}
-                className="cursor-grab touch-pan-y active:cursor-grabbing"
+                mode="wait"
               >
-                <OnboardingCard
-                  badge={activeSlide.badge}
-                  title={activeSlide.title}
-                  description={activeSlide.description}
-                  Icon={activeSlide.icon}
-                  active
-                />
-              </motion.div>
-            </AnimatePresence>
+                <motion.div
+                  key={activeSlide.id}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{
+                    x: {
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 32,
+                      mass: 0.82,
+                    },
+                    opacity: {
+                      duration: 0.18,
+                    },
+                    scale: {
+                      duration: 0.25,
+                      ease: "easeOut",
+                    },
+                    filter: {
+                      duration: 0.2,
+                    },
+                  }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.14}
+                  onDragEnd={handleDragEnd}
+                  className="cursor-grab touch-pan-y active:cursor-grabbing"
+                >
+                  <OnboardingCard
+                    badge={activeSlide.badge}
+                    title={activeSlide.title}
+                    description={activeSlide.description}
+                    Icon={activeSlide.icon}
+                    active
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Pagination */}
-        <div className="mt-6 flex items-center justify-center gap-2">
+        <div className="mt-5 flex h-6 items-center justify-center gap-2">
           {onboardingSlides.map((slide, index) => {
             const isActive = index === activeIndex;
 
@@ -264,14 +479,17 @@ const handleContinue = () => {
                 onClick={() =>
                   goToSlide(index, index > activeIndex ? 1 : -1)
                 }
-                className="flex h-5 items-center justify-center"
+                className="flex h-6 items-center justify-center"
               >
                 <motion.span
                   animate={{
-                    width: isActive ? 24 : 6,
-                    opacity: isActive ? 1 : 0.35,
+                    width: isActive ? 26 : 6,
+                    opacity: isActive ? 0.95 : 0.25,
                   }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.28,
+                    ease: "easeOut",
+                  }}
                   className="block h-1.5 rounded-full bg-white"
                 />
               </button>
@@ -279,29 +497,43 @@ const handleContinue = () => {
           })}
         </div>
 
-        {/* Continue */}
+        {/* Continue button */}
         <motion.button
           type="button"
           onClick={handleContinue}
           disabled={!canContinue}
-          whileHover={canContinue ? { scale: 1.015 } : undefined}
+          whileHover={canContinue ? { scale: 1.012 } : undefined}
           whileTap={canContinue ? { scale: 0.985 } : undefined}
           animate={{
-            opacity: canContinue ? 1 : 0.32,
+            opacity: canContinue ? 1 : 0.38,
           }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className={`mt-6 w-full rounded-2xl px-6 py-4 text-sm font-semibold uppercase tracking-[0.28em] transition-colors duration-300 ${
+          transition={{
+            duration: 0.25,
+            ease: "easeOut",
+          }}
+          className={`group relative mt-4 w-full overflow-hidden rounded-[18px] px-6 py-[17px] text-[12px] font-semibold uppercase tracking-[0.3em] transition-colors duration-300 ${
             canContinue
-              ? "cursor-pointer bg-white text-black hover:bg-neutral-200"
-              : "cursor-not-allowed border border-white/8 bg-white/[0.04] text-neutral-500"
+              ? "cursor-pointer bg-white text-black shadow-[0_18px_60px_rgba(255,255,255,0.12)] hover:bg-neutral-200"
+              : "cursor-not-allowed border border-white/[0.07] bg-white/[0.035] text-white/30"
           }`}
         >
-          Continue
+          {canContinue && (
+            <span className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent" />
+          )}
+
+          <span className="relative z-10">Continue</span>
         </motion.button>
 
-        <p className="mt-4 text-center text-[10px] uppercase tracking-[0.48em] text-neutral-600">
-          Swipe to explore
-        </p>
+        {/* Swipe guide */}
+        <div className="mt-4 flex items-center justify-center gap-3">
+          <div className="h-px w-8 bg-gradient-to-r from-transparent to-white/15" />
+
+          <p className="text-center text-[8px] font-medium uppercase tracking-[0.45em] text-white/25">
+            Swipe to explore
+          </p>
+
+          <div className="h-px w-8 bg-gradient-to-l from-transparent to-white/15" />
+        </div>
       </section>
     </main>
   );
