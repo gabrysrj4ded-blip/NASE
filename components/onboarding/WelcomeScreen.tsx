@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { useRouter } from "next/navigation";
-import FloatingIcons from "./FloatingIcons";
 import {
   Bell,
   Bot,
