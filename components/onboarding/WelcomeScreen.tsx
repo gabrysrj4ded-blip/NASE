@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { useRouter } from "next/navigation";
+import FloatingIcons from "./FloatingIcons";
 import {
   Bell,
   Bot,
@@ -32,24 +33,35 @@ const ONBOARDING_STORAGE_KEY = "nase-onboarding-completed";
 const SWIPE_THRESHOLD = 70;
 
 const floatingIcons = [
-  { Icon: ShoppingBag, x: "8%", y: "12%", delay: 0.1, size: 66 },
-  { Icon: Wallet, x: "77%", y: "10%", delay: 0.3, size: 72 },
-  { Icon: Bot, x: "42%", y: "5%", delay: 0.5, size: 58 },
-  { Icon: MessageCircle, x: "84%", y: "30%", delay: 0.2, size: 60 },
-  { Icon: Store, x: "4%", y: "32%", delay: 0.6, size: 62 },
-  { Icon: ShieldCheck, x: "13%", y: "70%", delay: 0.4, size: 68 },
-  { Icon: Headphones, x: "75%", y: "72%", delay: 0.7, size: 64 },
-  { Icon: Package, x: "40%", y: "82%", delay: 0.25, size: 58 },
-  { Icon: CreditCard, x: "4%", y: "52%", delay: 0.45, size: 56 },
-  { Icon: Bell, x: "87%", y: "53%", delay: 0.15, size: 54 },
-  { Icon: Search, x: "26%", y: "7%", delay: 0.35, size: 50 },
-  { Icon: Users, x: "61%", y: "8%", delay: 0.55, size: 52 },
-  { Icon: UserRound, x: "88%", y: "84%", delay: 0.65, size: 52 },
-  { Icon: Settings, x: "2%", y: "86%", delay: 0.75, size: 50 },
-  { Icon: Heart, x: "24%", y: "88%", delay: 0.12, size: 48 },
-  { Icon: Wifi, x: "66%", y: "88%", delay: 0.32, size: 50 },
-  { Icon: CircleHelp, x: "91%", y: "14%", delay: 0.52, size: 46 },
-  { Icon: Sparkles, x: "2%", y: "16%", delay: 0.72, size: 46 },
+  // ===== TOP =====
+  { Icon: Bot, x: "50%", y: "6%", delay: 0.10, size: 78 },
+  { Icon: ShoppingBag, x: "32%", y: "10%", delay: 0.20, size: 66 },
+  { Icon: Wallet, x: "68%", y: "10%", delay: 0.30, size: 68 },
+  { Icon: Search, x: "40%", y: "16%", delay: 0.40, size: 48 },
+  { Icon: Users, x: "60%", y: "16%", delay: 0.50, size: 50 },
+
+  // ===== LEFT =====
+  { Icon: Store, x: "16%", y: "28%", delay: 0.25, size: 58 },
+  { Icon: CreditCard, x: "12%", y: "44%", delay: 0.35, size: 52 },
+  { Icon: ShieldCheck, x: "16%", y: "60%", delay: 0.45, size: 60 },
+  { Icon: Settings, x: "22%", y: "78%", delay: 0.55, size: 48 },
+
+  // ===== RIGHT =====
+  { Icon: MessageCircle, x: "84%", y: "28%", delay: 0.25, size: 58 },
+  { Icon: Bell, x: "88%", y: "44%", delay: 0.35, size: 52 },
+  { Icon: Headphones, x: "84%", y: "60%", delay: 0.45, size: 60 },
+  { Icon: UserRound, x: "78%", y: "78%", delay: 0.55, size: 48 },
+
+  // ===== BOTTOM =====
+  { Icon: Heart, x: "34%", y: "88%", delay: 0.65, size: 46 },
+  { Icon: Package, x: "50%", y: "92%", delay: 0.75, size: 56 },
+  { Icon: Wifi, x: "66%", y: "88%", delay: 0.85, size: 46 },
+
+  // ===== EXTRA =====
+  { Icon: Sparkles, x: "26%", y: "20%", delay: 0.90, size: 40 },
+  { Icon: CircleHelp, x: "74%", y: "20%", delay: 1.00, size: 40 },
+  { Icon: ShoppingBag, x: "28%", y: "72%", delay: 1.10, size: 40 },
+  { Icon: Wallet, x: "72%", y: "72%", delay: 1.20, size: 40 },
 ];
 
 const slideVariants = {
@@ -147,14 +159,14 @@ const handleContinue = () => {
             key={`${x}-${y}-${index}`}
             initial={{ opacity: 0, scale: 0.75, y: 10 }}
             animate={{
-              opacity: [0.1, 0.22, 0.12],
-              scale: [1, 1.04, 1],
-              y: [0, -8, 0],
-              rotate: [0, index % 2 === 0 ? 2.5 : -2.5, 0],
+              opacity: [0.14, 0.34, 0.14],
+scale: [1, 1.08, 1],
+y: [0, -12, 0],
+rotate: [-4, 4, -4],
             }}
             transition={{
               delay,
-              duration: 6 + (index % 4),
+              duration: 5 + index * 0.25,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -164,7 +176,7 @@ const handleContinue = () => {
               width: size,
               height: size,
             }}
-            className="absolute hidden -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.035] shadow-[0_18px_70px_rgba(0,0,0,0.7)] backdrop-blur-xl min-[420px]:flex"
+            className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[26px] border border-white/10 bg-white/[0.05] shadow-[0_25px_90px_rgba(255,255,255,0.08)] backdrop-blur-2xl"
           >
             <Icon
               className="h-[42%] w-[42%] text-white"
