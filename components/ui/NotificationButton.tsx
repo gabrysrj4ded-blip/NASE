@@ -1,34 +1,24 @@
 "use client";
 
 import { Bell } from "lucide-react";
+
 import IconButton from "./IconButton";
 
-export default function NotificationButton() {
+type Props = {
+  count?: number;
+  onClick?: () => void;
+};
+
+export default function NotificationButton({
+  count = 3,
+  onClick,
+}: Props) {
   return (
-    <div className="relative">
-
-      <IconButton icon={Bell} />
-
-      <span
-        className="
-        absolute
-        -right-1
-        -top-1
-        flex
-        h-5
-        w-5
-        items-center
-        justify-center
-        rounded-full
-        bg-white
-        text-[10px]
-        font-semibold
-        text-black
-        "
-      >
-        3
-      </span>
-
-    </div>
+    <IconButton
+      icon={Bell}
+      label="Notifications"
+      badge={count}
+      onClick={onClick}
+    />
   );
 }

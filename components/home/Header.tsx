@@ -1,127 +1,59 @@
 "use client";
 
 import Image from "next/image";
-import { Bell, Headphones } from "lucide-react";
+import { Headset } from "lucide-react";
+
+import {
+  IconButton,
+  NotificationButton,
+} from "@/components/ui";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between py-2">
-
-      {/* Left */}
-
-      <div className="flex items-center gap-3">
-
-        <div className="relative">
-
+    <header className="flex items-center justify-between gap-2">
+      {/* Profile */}
+      <div className="flex min-w-0 items-center gap-3">
+        <div className="relative shrink-0">
           <Image
             src="/images/avatar.png"
-            alt="Avatar"
-            width={48}
-            height={48}
-            className="rounded-full object-cover ring-1 ring-white/10"
+            alt="Naomi profile"
+            width={44}
+            height={44}
+            priority
+            className="h-11 w-11 rounded-full object-cover ring-1 ring-white/10"
           />
 
-          <div className="absolute bottom-0.5 right-0.5 h-3 w-3 rounded-full border-2 border-black bg-green-500" />
-
+          <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-black bg-emerald-400" />
         </div>
 
-        <div>
-
-          <p className="text-[11px] font-medium text-neutral-500">
-            Welcome back
-          </p>
-
-          <h1 className="mt-0.5 text-[22px] font-semibold tracking-[-0.6px] text-white">
+        <div className="min-w-0">
+          <h1 className="truncate text-[21px] font-semibold leading-none tracking-[-0.65px] text-white">
             Hi, Naomi
           </h1>
 
+          <p className="mt-1.5 text-[9px] font-medium uppercase tracking-[0.24em] text-white/35">
+            Welcome!
+          </p>
         </div>
-
       </div>
 
-      {/* Right */}
+      {/* Actions */}
+      <div className="flex shrink-0 items-center gap-2.5">
+        <IconButton
+          icon={Headset}
+          label="Customer support"
+          onClick={() => {
+            // Support route or modal goes here.
+          }}
+        />
 
-      <div className="flex items-center gap-3">
-
-        {/* Support */}
-
-        <button
-          className="
-            flex
-            h-12
-            w-12
-            items-center
-            justify-center
-            rounded-2xl
-            border
-            border-white/10
-            bg-gradient-to-b
-            from-[#181818]
-            to-[#0B0B0B]
-            transition-all
-            duration-300
-            hover:border-white/20
-            hover:bg-[#1b1b1b]
-          "
-        >
-          <Headphones
-            size={20}
-            strokeWidth={1.8}
-            className="text-white"
-          />
-        </button>
-
-        {/* Notification */}
-
-        <button
-          className="
-            relative
-            flex
-            h-12
-            w-12
-            items-center
-            justify-center
-            rounded-2xl
-            border
-            border-white/10
-            bg-gradient-to-b
-            from-[#181818]
-            to-[#0B0B0B]
-            transition-all
-            duration-300
-            hover:border-white/20
-            hover:bg-[#1b1b1b]
-          "
-        >
-          <Bell
-            size={20}
-            strokeWidth={1.8}
-            className="text-white"
-          />
-
-          <span
-            className="
-              absolute
-              -right-1
-              -top-1
-              flex
-              h-5
-              w-5
-              items-center
-              justify-center
-              rounded-full
-              bg-white
-              text-[10px]
-              font-semibold
-              text-black
-            "
-          >
-            3
-          </span>
-        </button>
-
+        <NotificationButton
+          count={3}
+          onClick={() => {
+            // Notification route or panel goes here.
+          }}
+        />
       </div>
-
     </header>
   );
 }
