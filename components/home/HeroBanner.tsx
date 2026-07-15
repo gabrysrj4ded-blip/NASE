@@ -11,7 +11,6 @@ export default function HeroBanner() {
       transition={{ duration: 0.55 }}
       className="
         relative
-        mt-2
         aspect-[16/9]
         overflow-hidden
         rounded-[28px]
