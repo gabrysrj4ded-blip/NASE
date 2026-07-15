@@ -19,7 +19,9 @@ export default function HomeScreen() {
 
       <SectionDivider />
      
-     <div className="-mt-2"></div>
+      <div className="-mt-2">
+        
+      </div>
       
       <HeroBanner />
 
