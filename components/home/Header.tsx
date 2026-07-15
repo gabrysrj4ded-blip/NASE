@@ -10,7 +10,7 @@ import {
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between gap-2">
+    <header className="flex items-center justify-between gap-2 pb-1">
       {/* Profile */}
       <div className="flex min-w-0 items-center gap-3">
         <div className="relative shrink-0">
