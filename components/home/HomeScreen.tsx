@@ -12,11 +12,15 @@ export default function HomeScreen() {
       <Header />
 
       <div className="-mt-3">
-        <SearchBar />
-      </div>
+       
+      <SearchBar />
+      
+      <div className="-mt-2">
 
       <SectionDivider />
-
+     
+     <div className="-mt-2"></div>
+      
       <HeroBanner />
 
       <SectionDivider />
