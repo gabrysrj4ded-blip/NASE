@@ -11,7 +11,7 @@ export default function HomeScreen() {
 
       <Header />
 
-      <div className="-mt-2">
+      <div className="-mt-3">
         <SearchBar />
       </div>
 
