@@ -13,7 +13,7 @@ export default function HeroBanner() {
       }}
       className="
       relative
-      mt-3
+      mt-1
       h-[285px]
       overflow-hidden
       rounded-[34px]
