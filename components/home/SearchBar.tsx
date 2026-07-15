@@ -1,70 +1,76 @@
 "use client";
 
-import { Search, Mic } from "lucide-react";
+import { Mic, Search } from "lucide-react";
 
 export default function SearchBar() {
   return (
-    <div className="mt-8">
-
+    <div className="mt-2">
       <div
         className="
-        flex
-        h-[64px]
-        items-center
-        rounded-[24px]
-        border
-        border-white/8
-        bg-gradient-to-b
-        from-[#151515]
-        via-[#111111]
-        to-[#0B0B0B]
-        px-6
-        transition-all
-        duration-300
+          flex
+          h-12
+          items-center
+          rounded-[18px]
+          border
+          border-white/[0.08]
+          bg-gradient-to-b
+          from-[#1A1A1A]
+          via-[#111111]
+          to-[#090909]
+          px-4
+          shadow-[0_14px_38px_rgba(0,0,0,.35)]
+          transition-all
+          duration-300
+          hover:border-white/[0.14]
         "
       >
-
-        {/* Search */}
+        {/* Search Icon */}
 
         <Search
-          size={24}
-          strokeWidth={2}
-          className="text-white"
+          size={18}
+          strokeWidth={1.9}
+          className="text-white/80"
         />
 
+        {/* Input */}
+
         <input
-          placeholder="Search anything in NASE..."
+          placeholder="Search in NASE..."
           className="
-          ml-4
-          flex-1
-          bg-transparent
-          text-[17px]
-          text-white
-          placeholder:text-neutral-500
-          outline-none
+            ml-3
+            flex-1
+            bg-transparent
+            text-[14px]
+            font-medium
+            text-white
+            placeholder:text-white/35
+            outline-none
           "
         />
+
+        {/* Voice */}
 
         <button
           className="
-          ml-5
-          flex
-          h-10
-          w-10
-          items-center
-          justify-center
-          rounded-full
+            ml-2
+            flex
+            h-8
+            w-8
+            items-center
+            justify-center
+            rounded-full
+            transition-colors
+            duration-300
+            hover:bg-white/5
           "
         >
           <Mic
-            size={22}
-            strokeWidth={2}
-            className="text-white"
+            size={18}
+            strokeWidth={1.9}
+            className="text-white/75"
           />
         </button>
-
       </div>
-
     </div>
   );
 }
