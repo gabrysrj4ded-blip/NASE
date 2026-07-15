@@ -4,7 +4,7 @@ import { Mic, Search } from "lucide-react";
 
 export default function SearchBar() {
   return (
-    <div className="mt-2">
+    <div>
       <div
         className="
           flex
