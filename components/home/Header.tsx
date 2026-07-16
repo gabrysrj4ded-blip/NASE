@@ -21,7 +21,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="flex w-full items-center justify-between gap-3">
+    <header className="flex w-full items-center">
       {/* Profile */}
 
       <button
@@ -43,7 +43,7 @@ export default function Header() {
           <span className="absolute bottom-0 right-0 h-[11px] w-[11px] rounded-full border-2 border-black bg-emerald-400" />
         </div>
 
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <p
             className="
               text-[8px]
@@ -60,7 +60,6 @@ export default function Header() {
           <h1
             className="
               mt-1.5
-              max-w-[110px]
               truncate
               uppercase
               text-[22px]
@@ -75,25 +74,23 @@ export default function Header() {
         </div>
       </button>
 
-      {/* Vertical Divider */}
-
-      <div
-        className="
-          h-11
-          w-px
-          shrink-0
-          bg-gradient-to-b
-          from-transparent
-          via-white/18
-          to-transparent
-        "
-      />
-
       {/* Actions */}
 
-      <div className="flex shrink-0 items-center gap-2">
-                {/* My Profile */}
+      <div className="ml-3 flex shrink-0 items-center gap-1.5">
+        {/* Vertical Divider */}
 
+        <div
+          className="
+            mr-2
+            h-11
+            w-px
+            shrink-0
+            bg-gradient-to-b
+            from-transparent
+            via-white/18
+            to-transparent
+          "
+        />
         <motion.button
           type="button"
           onClick={() => router.push("/profile")}
@@ -102,10 +99,11 @@ export default function Header() {
             relative
             flex
             h-12
-            min-w-[72px]
+            w-[72px]
+            shrink-0
             items-center
             justify-center
-            gap-1.5
+            gap-1
             overflow-hidden
             rounded-[17px]
             border
@@ -114,8 +112,8 @@ export default function Header() {
             from-[#202020]
             via-[#121212]
             to-[#080808]
-            px-2.5
-            text-[12px]
+            px-2
+            text-[11px]
             font-extrabold
             tracking-[-0.2px]
             text-white
@@ -125,19 +123,18 @@ export default function Header() {
             hover:border-white/[0.18]
           "
         >
-          <span className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+          <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
-          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-14 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
+          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
 
           <User
-            size={18}
-            strokeWidth={2.8}
+            size={17}
+            strokeWidth={3}
             className="
               relative
               z-10
               shrink-0
               text-white
-              drop-shadow-[0_0_10px_rgba(255,255,255,.22)]
             "
           />
 
@@ -145,16 +142,14 @@ export default function Header() {
             className="
               relative
               z-10
-              whitespace-nowrap
+              text-[10px]
               font-extrabold
-              tracking-[-0.2px]
+              leading-none
             "
           >
-            My Profile
+            Profile
           </span>
         </motion.button>
-
-        {/* Add Shop */}
 
         <motion.button
           type="button"
@@ -165,10 +160,11 @@ export default function Header() {
             relative
             flex
             h-12
-            min-w-[108px]
+            w-[72px]
+            shrink-0
             items-center
             justify-center
-            gap-2
+            gap-1
             overflow-hidden
             rounded-[17px]
             border
@@ -177,8 +173,8 @@ export default function Header() {
             from-[#202020]
             via-[#121212]
             to-[#080808]
-            px-3
-            text-[12px]
+            px-2
+            text-[11px]
             font-extrabold
             tracking-[-0.2px]
             text-white
@@ -188,16 +184,13 @@ export default function Header() {
             hover:border-white/[0.18]
           "
         >
-          <span className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+          <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
-          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-14 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
+          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
 
           <motion.span
             aria-hidden="true"
-            initial={{
-              x: "-220%",
-              opacity: 0,
-            }}
+            initial={{ x: "-220%", opacity: 0 }}
             animate={{
               x: ["-220%", "260%"],
               opacity: [0, 0.35, 0],
@@ -213,7 +206,7 @@ export default function Header() {
               absolute
               -bottom-6
               -top-6
-              w-12
+              w-10
               -skew-x-[22deg]
               bg-gradient-to-r
               from-transparent
@@ -224,14 +217,13 @@ export default function Header() {
           />
 
           <Plus
-            size={18}
-            strokeWidth={2.8}
+            size={17}
+            strokeWidth={3}
             className="
               relative
               z-10
               shrink-0
               text-white
-              drop-shadow-[0_0_10px_rgba(255,255,255,.28)]
             "
           />
 
@@ -239,12 +231,12 @@ export default function Header() {
             className="
               relative
               z-10
-              whitespace-nowrap
+              text-[10px]
               font-extrabold
-              tracking-[-0.2px]
+              leading-none
             "
           >
-            Add Shop
+            Shop
           </span>
         </motion.button>
       </div>
