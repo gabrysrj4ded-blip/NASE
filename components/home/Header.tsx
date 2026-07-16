@@ -21,12 +21,14 @@ export default function Header() {
     const savedUsername = localStorage.getItem(USERNAME_STORAGE_KEY)?.trim();
 
     if (savedUsername) {
-      setUsername(savedUsername);
+      setUsername(savedUsername.toUpperCase());
     }
   }, []);
 
   return (
     <header className="flex w-full items-center justify-between gap-2">
+      {/* Profile */}
+
       <button
         type="button"
         onClick={() => {}}
@@ -47,27 +49,53 @@ export default function Header() {
         </div>
 
         <div className="min-w-0">
-          <p className="text-[8px] font-semibold uppercase leading-none tracking-[0.28em] text-white/35">
+          <p
+            className="
+            text-[8px]
+            font-semibold
+            uppercase
+            leading-none
+            tracking-[0.28em]
+            text-white/35
+          "
+          >
             Welcome!
           </p>
 
-          <h1 className="mt-1.5 max-w-[92px] truncate text-[20px] font-semibold leading-none tracking-[-0.55px] text-white">
+          <h1
+            className="
+            mt-1.5
+            max-w-[100px]
+            truncate
+            text-[21px]
+            font-bold
+            leading-none
+            tracking-[-0.6px]
+            text-white
+          "
+          >
             {username}
           </h1>
         </div>
       </button>
 
+      {/* Actions */}
+
       <div className="flex shrink-0 items-center gap-1.5">
         <IconButton
           icon={Headset}
+          strokeWidth={2.5}
           label="Customer support"
           onClick={() => {}}
         />
 
         <NotificationButton
           count={3}
+          strokeWidth={2.5}
           onClick={() => router.push("/notifications")}
         />
+
+        {/* Add Shop */}
 
         <motion.button
           type="button"
@@ -78,10 +106,10 @@ export default function Header() {
             relative
             flex
             h-12
-            min-w-[104px]
+            min-w-[108px]
             items-center
             justify-center
-            gap-0.5
+            gap-[2px]
             overflow-hidden
             rounded-[17px]
             border
@@ -90,58 +118,79 @@ export default function Header() {
             from-[#202020]
             via-[#121212]
             to-[#080808]
-            px-3.5
-            text-[11px]
-            font-semibold
-            tracking-[-0.1px]
+            px-3
+            text-[12px]
+            font-bold
+            tracking-[-0.2px]
             text-white
-            shadow-[0_18px_42px_rgba(0,0,0,0.62),inset_0_1px_0_rgba(255,255,255,0.12)]
-            transition-[transform,border-color,box-shadow]
+            shadow-[0_18px_42px_rgba(0,0,0,.62),inset_0_1px_0_rgba(255,255,255,.12)]
+            transition-all
             duration-300
-            hover:border-white/[0.17]
-            hover:shadow-[0_20px_48px_rgba(0,0,0,0.68),inset_0_1px_0_rgba(255,255,255,0.16)]
+            hover:border-white/[0.18]
           "
-          aria-label="Add Shop"
         >
+          {/* Top Highlight */}
+
           <span className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
-          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-12 -translate-x-1/2 rounded-full bg-white/[0.055] blur-xl" />
+          {/* Glow */}
+
+          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-14 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
+
+          {/* Shine */}
 
           <motion.span
             aria-hidden="true"
-            initial={{ x: "-190%", opacity: 0 }}
+            initial={{
+              x: "-220%",
+              opacity: 0,
+            }}
             animate={{
-              x: ["-190%", "240%"],
-              opacity: [0, 0.26, 0],
+              x: ["-220%", "260%"],
+              opacity: [0, 0.35, 0],
             }}
             transition={{
               duration: 1.15,
               repeat: Infinity,
-              repeatDelay: 5.2,
-              ease: [0.22, 1, 0.36, 1],
+              repeatDelay: 5,
+              ease: "easeInOut",
             }}
             className="
               pointer-events-none
               absolute
-              -bottom-5
-              -top-5
-              w-10
+              -bottom-6
+              -top-6
+              w-12
               -skew-x-[22deg]
               bg-gradient-to-r
               from-transparent
-              via-white/65
+              via-white/90
               to-transparent
-              blur-[5px]
+              blur-[7px]
             "
           />
 
           <Plus
-            size={17}
-            strokeWidth={2}
-            className="relative z-10 shrink-0 text-white/95 drop-shadow-[0_0_7px_rgba(255,255,255,0.14)]"
+            size={18}
+            strokeWidth={2.6}
+            className="
+              relative
+              z-10
+              shrink-0
+              text-white
+              drop-shadow-[0_0_10px_rgba(255,255,255,.28)]
+            "
           />
 
-          <span className="relative z-10 whitespace-nowrap">
+          <span
+            className="
+              relative
+              z-10
+              whitespace-nowrap
+              font-bold
+              tracking-[-0.2px]
+            "
+          >
             Add Shop
           </span>
         </motion.button>
