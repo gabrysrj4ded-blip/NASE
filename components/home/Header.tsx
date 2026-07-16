@@ -81,7 +81,7 @@ export default function Header() {
             min-w-[104px]
             items-center
             justify-center
-            gap-2
+            gap-0.5
             overflow-hidden
             rounded-[17px]
             border
@@ -136,7 +136,7 @@ export default function Header() {
           />
 
           <Plus
-            size={16}
+            size={17}
             strokeWidth={2}
             className="relative z-10 shrink-0 text-white/95 drop-shadow-[0_0_7px_rgba(255,255,255,0.14)]"
           />

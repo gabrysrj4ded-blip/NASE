@@ -53,7 +53,7 @@ export default function AppIcon({
 
       <Icon
         size={iconSizes[size]}
-        strokeWidth={1.75}
+        strokeWidth={2.35}
         className={clsx(
           "relative z-10 text-white/95 drop-shadow-[0_0_8px_rgba(255,255,255,0.13)]",
           iconClassName,
