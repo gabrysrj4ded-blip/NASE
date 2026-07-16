@@ -102,10 +102,10 @@ export default function Header() {
             relative
             flex
             h-12
-            min-w-[108px]
+            min-w-[72px]
             items-center
             justify-center
-            gap-2
+            gap-1.5
             overflow-hidden
             rounded-[17px]
             border
@@ -114,7 +114,7 @@ export default function Header() {
             from-[#202020]
             via-[#121212]
             to-[#080808]
-            px-3
+            px-2.5
             text-[12px]
             font-extrabold
             tracking-[-0.2px]
