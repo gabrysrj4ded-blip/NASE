@@ -4,75 +4,96 @@ import Image from "next/image";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { useState } from "react";
 
-const banners = [
+const services = [
   {
     title: "TELEGRAM SERVICES",
+    description: "Everything you need for Telegram in one place.",
     image: "/images/categories/telegram.jpg",
   },
   {
-    title: "PREMIUM • STARS • GIFTS",
+    title: "PREMIUM STARS",
+    description: "Premium, Stars and Gifts for your account.",
     image: "/images/categories/premium.jpg",
   },
   {
     title: "NFT",
+    description: "Collect, trade and manage digital assets.",
     image: "/images/categories/nft.jpg",
   },
   {
     title: "AI & TOOLS",
+    description: "Powerful AI tools for everyday work.",
     image: "/images/categories/ai.jpg",
   },
   {
     title: "FINANCE",
+    description: "Payments, wallets and financial services.",
     image: "/images/categories/finance.jpg",
   },
   {
-    title: "ADVERTISE SERVICES",
+    title: "ADVERTISE",
+    description: "Advertising and promotion inside NASE.",
     image: "/images/categories/advertise.jpg",
   },
 ];
 
-const DRAG_THRESHOLD = 55;
+const SWIPE_DISTANCE = 55;
 
 export default function NaseGivesYou() {
+
   const [current, setCurrent] = useState(0);
 
   const previous =
-    current === 0 ? banners.length - 1 : current - 1;
+    current === 0
+      ? services.length - 1
+      : current - 1;
 
   const next =
-    current === banners.length - 1 ? 0 : current + 1;
+    current === services.length - 1
+      ? 0
+      : current + 1;
 
-  function paginate(direction: number) {
-    if (direction > 0) {
-      setCurrent((prev) =>
-        prev === banners.length - 1 ? 0 : prev + 1
-      );
-    } else {
-      setCurrent((prev) =>
-        prev === 0 ? banners.length - 1 : prev - 1
-      );
-    }
+  function nextCard() {
+    setCurrent((prev) =>
+      prev === services.length - 1
+        ? 0
+        : prev + 1
+    );
+  }
+
+  function previousCard() {
+    setCurrent((prev) =>
+      prev === 0
+        ? services.length - 1
+        : prev - 1
+    );
   }
 
   function handleDragEnd(
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
-    if (info.offset.x < -DRAG_THRESHOLD) {
-      paginate(1);
+
+    if (info.offset.y < -SWIPE_DISTANCE) {
+      nextCard();
     }
 
-    if (info.offset.x > DRAG_THRESHOLD) {
-      paginate(-1);
+    if (info.offset.y > SWIPE_DISTANCE) {
+      previousCard();
     }
   }
 
+  const currentItem = services[current];
+  const previousItem = services[previous];
+  const nextItem = services[next];
+
   return (
-    <section className="mt-3 w-full">
+
+    <section className="mt-3">
 
       {/* Header */}
 
-      <div className="mb-3 px-1">
+      <div className="mb-5">
 
         <h2
           className="
@@ -87,212 +108,175 @@ export default function NaseGivesYou() {
 
       </div>
 
-      {/* Carousel */}
+      {/* Wheel */}
 
-      <div className="relative overflow-hidden">
+      <div
+        className="
+          relative
+          flex
+          items-center
+          gap-5
+        "
+        style={{
+          perspective: "1800px",
+        }}
+      >
 
-        {/* Left Preview */}
+        {/* LEFT WHEEL */}
 
-        <motion.div
+        <div
           className="
-            absolute
-            left-[-48%]
-            top-0
-            z-0
-            h-[190px]
-            w-[82%]
-            overflow-hidden
-            rounded-[28px]
-            opacity-50
+            relative
+            h-[390px]
+            w-[145px]
+            shrink-0
           "
-          animate={{
-            scale: 0.92,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
         >
-          <Image
-            src={banners[previous].image}
-            alt={banners[previous].title}
-            fill
-            className="object-cover"
-          />
+                  {/* Previous Card */}
 
-          <div className="absolute inset-0 bg-black/30" />
-        </motion.div>
+          <motion.div
+            className="absolute left-0 top-0 h-[120px] w-full overflow-hidden rounded-[26px]"
+            animate={{
+              y: 0,
+              scale: 0.82,
+              rotateX: -72,
+              z: -180,
+              opacity: 0.35,
+              filter: "blur(1.5px)",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 140,
+              damping: 18,
+            }}
+          >
+            <Image
+              src={previousItem.image}
+              alt={previousItem.title}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
 
-        {/* Right Preview */}
+          {/* Current Card */}
 
-        <motion.div
-          className="
-            absolute
-            right-[-48%]
-            top-0
-            z-0
-            h-[190px]
-            w-[82%]
-            overflow-hidden
-            rounded-[28px]
-            opacity-50
-          "
-          animate={{
-            scale: 0.92,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
-        >
-          <Image
-            src={banners[next].image}
-            alt={banners[next].title}
-            fill
-            className="object-cover"
-          />
+          <motion.div
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={0.22}
+            onDragEnd={handleDragEnd}
+            className="absolute left-0 top-[135px] z-30 h-[145px] w-full cursor-grab overflow-hidden rounded-[28px] active:cursor-grabbing"
+            animate={{
+              scale: 1,
+              rotateX: 0,
+              z: 80,
+              opacity: 1,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 170,
+              damping: 18,
+            }}
+            style={{
+              boxShadow:
+                "0 28px 65px rgba(0,0,0,.45)",
+            }}
+          >
+            <Image
+              src={currentItem.image}
+              alt={currentItem.title}
+              fill
+              priority
+              className="object-cover"
+            />
 
-          <div className="absolute inset-0 bg-black/30" />
-        </motion.div>
-                {/* Main Banner */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
+          </motion.div>
+
+          {/* Next Card */}
+
+          <motion.div
+            className="absolute bottom-0 left-0 h-[120px] w-full overflow-hidden rounded-[26px]"
+            animate={{
+              scale: 0.82,
+              rotateX: 72,
+              z: -180,
+              opacity: 0.35,
+              filter: "blur(1.5px)",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 140,
+              damping: 18,
+            }}
+          >
+            <Image
+              src={nextItem.image}
+              alt={nextItem.title}
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+
+        </div>
+
+        {/* Right Content */}
 
         <AnimatePresence mode="wait">
 
           <motion.div
             key={current}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.35}
-            onDragEnd={handleDragEnd}
             initial={{
               opacity: 0,
-              scale: 0.96,
+              x: 18,
             }}
             animate={{
               opacity: 1,
-              scale: 1,
+              x: 0,
             }}
             exit={{
               opacity: 0,
-              scale: 0.96,
+              x: -18,
             }}
             transition={{
-              type: "spring",
-              stiffness: 220,
-              damping: 24,
+              duration: 0.28,
             }}
-            className="
-              relative
-              z-10
-              mx-auto
-              h-[190px]
-              w-[82%]
-              cursor-grab
-              active:cursor-grabbing
-            "
+            className="flex-1"
           >
 
-            <div
+            <h3
               className="
-                relative
-                h-full
-                overflow-hidden
-                rounded-[28px]
-                shadow-[0_22px_50px_rgba(0,0,0,.42)]
+                text-[30px]
+                font-black
+                uppercase
+                leading-[1]
+                tracking-tight
+                text-white
               "
             >
+              {currentItem.title}
+            </h3>
 
-              <Image
-                src={banners[current].image}
-                alt={banners[current].title}
-                fill
-                priority
-                className="object-cover"
-              />
-
-              {/* Bottom Gradient */}
-
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-black/90
-                  via-black/20
-                  to-transparent
-                "
-              />
-
-              {/* Premium Overlay */}
-
-              <div
-                className="
-                  absolute
-                  inset-0
-                  rounded-[28px]
-                  border
-                  border-white/10
-                  bg-white/[0.02]
-                "
-              />
-
-              {/* Title */}
-
-              <div
-                className="
-                  absolute
-                  bottom-5
-                  left-5
-                  right-5
-                "
-              >
-
-                <h3
-                  className="
-                    text-left
-                    text-[18px]
-                    font-black
-                    uppercase
-                    tracking-wide
-                    text-white
-                  "
-                >
-                  {banners[current].title}
-                </h3>
-
-              </div>
-
-            </div>
+            <p
+              className="
+                mt-4
+                max-w-[240px]
+                text-[14px]
+                leading-6
+                text-zinc-400
+              "
+            >
+              {currentItem.description}
+            </p>
 
           </motion.div>
 
         </AnimatePresence>
 
-        {/* Indicator */}
-
-        <div className="mt-5 flex items-center justify-center gap-2">
-
-          {banners.map((_, index) => (
-
-            <motion.div
-              key={index}
-              animate={{
-                width: current === index ? 34 : 8,
-                opacity: current === index ? 1 : 0.35,
-              }}
-              transition={{
-                duration: 0.3,
-              }}
-              className="
-                h-[6px]
-                rounded-full
-                bg-white
-              "
-            />
-
-          ))}
-
-        </div>
-
       </div>
-          </section>
+
+    </section>
+
   );
-}
+
+}  
