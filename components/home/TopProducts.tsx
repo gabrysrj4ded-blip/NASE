@@ -31,7 +31,7 @@ const banners = [
   },
 ];
 
-const DRAG_THRESHOLD = 80;
+const DRAG_THRESHOLD = 55;
 
 export default function NaseGivesYou() {
   const [current, setCurrent] = useState(0);
@@ -160,7 +160,7 @@ export default function NaseGivesYou() {
             key={current}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.18}
+            dragElastic={0.35}
             onDragEnd={handleDragEnd}
             initial={{
               opacity: 0,
