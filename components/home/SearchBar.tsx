@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Mic } from "lucide-react";
 
 export default function SearchBar() {
@@ -27,14 +28,27 @@ export default function SearchBar() {
       >
         {/* NASE Logo */}
 
-        <Image
-          src="/images/logo.png"
-          alt="NASE"
-          width={18}
-          height={18}
-          priority
-          className="h-[18px] w-[18px] shrink-0 object-contain"
-        />
+        <motion.div
+          className="shrink-0"
+          animate={{
+            rotate: [0, 180, 180, 360, 360],
+          }}
+          transition={{
+            duration: 5.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.22, 0.46, 0.72, 1],
+          }}
+        >
+          <Image
+            src="/images/logo.png"
+            alt="NASE"
+            width={22}
+            height={22}
+            priority
+            className="h-[22px] w-[22px] object-contain"
+          />
+        </motion.div>
 
         {/* Input */}
 
