@@ -1,6 +1,7 @@
 "use client";
 
-import { Mic, Search } from "lucide-react";
+import Image from "next/image";
+import { Mic } from "lucide-react";
 
 export default function SearchBar() {
   return (
@@ -17,19 +18,22 @@ export default function SearchBar() {
           from-[#1A1A1A]
           via-[#111111]
           to-[#090909]
-          px-4
+          px-[10px]
           shadow-[0_14px_38px_rgba(0,0,0,.35)]
           transition-all
           duration-300
           hover:border-white/[0.14]
         "
       >
-        {/* Search Icon */}
+        {/* NASE Logo */}
 
-        <Search
-          size={18}
-          strokeWidth={1.9}
-          className="text-white/80"
+        <Image
+          src="/images/logo.png"
+          alt="NASE"
+          width={18}
+          height={18}
+          priority
+          className="h-[18px] w-[18px] shrink-0 object-contain"
         />
 
         {/* Input */}
@@ -65,9 +69,9 @@ export default function SearchBar() {
           "
         >
           <Mic
-            size={18}
-            strokeWidth={1.9}
-            className="text-white/75"
+            size={20}
+            strokeWidth={3}
+            className="text-white/80"
           />
         </button>
       </div>
