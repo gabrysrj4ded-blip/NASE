@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, User } from "lucide-react";
+import {
+  Settings,
+  User,
+  Plus,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const USERNAME_STORAGE_KEY = "nase-username";
@@ -13,15 +17,45 @@ export default function Header() {
   const [username, setUsername] = useState("USERNAME");
 
   useEffect(() => {
-    const savedUsername = localStorage.getItem(USERNAME_STORAGE_KEY)?.trim();
+    const savedUsername = localStorage.getItem(
+      USERNAME_STORAGE_KEY
+    )?.trim();
 
     if (savedUsername) {
       setUsername(savedUsername.toUpperCase());
     }
   }, []);
 
+  const buttonClass = `
+    relative
+    flex
+    h-[46px]
+    shrink-0
+    items-center
+    justify-center
+    gap-[3px]
+    overflow-hidden
+    rounded-2xl
+    border
+    border-white/[0.10]
+    bg-gradient-to-b
+    from-[#202020]
+    via-[#121212]
+    to-[#080808]
+    px-2
+    text-[13px]
+    font-black
+    tracking-[-0.2px]
+    text-white
+    shadow-[0_18px_42px_rgba(0,0,0,.62),inset_0_1px_0_rgba(255,255,255,.12)]
+    transition-all
+    duration-300
+    hover:border-white/[0.18]
+  `;
+
   return (
     <header className="flex w-full items-center">
+
       {/* Profile */}
 
       <button
@@ -76,121 +110,88 @@ export default function Header() {
 
       {/* Actions */}
 
-      <div className="ml-3 flex shrink-0 items-center gap-1.5">
-        {/* Vertical Divider */}
+      <div className="ml-3 flex shrink-0 items-center gap-[2px]">
+
+        {/* Divider */}
 
         <div
           className="
             mr-2
-            h-11
+            h-10
             w-px
             shrink-0
             bg-gradient-to-b
             from-transparent
-            via-white/18
+            via-white/20
             to-transparent
           "
         />
+
+        {/* Settings */}
+
         <motion.button
           type="button"
-          onClick={() => router.push("/profile")}
           whileTap={{ scale: 0.97 }}
-          className="
-            relative
-            flex
-            h-12
-            w-[72px]
-            shrink-0
-            items-center
-            justify-center
-            gap-1
-            overflow-hidden
-            rounded-[17px]
-            border
-            border-white/[0.10]
-            bg-gradient-to-b
-            from-[#202020]
-            via-[#121212]
-            to-[#080808]
-            px-2
-            text-[11px]
-            font-extrabold
-            tracking-[-0.2px]
-            text-white
-            shadow-[0_18px_42px_rgba(0,0,0,.62),inset_0_1px_0_rgba(255,255,255,.12)]
-            transition-all
-            duration-300
-            hover:border-white/[0.18]
-          "
+          onClick={() => router.push("/settings")}
+          className={`${buttonClass} w-[78px]`}
+        >
+          <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+
+          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
+
+          <Settings
+            size={20}
+            strokeWidth={3}
+            className="relative z-10 shrink-0"
+          />
+
+          <span className="relative z-10">
+            Setting
+          </span>
+        </motion.button>
+
+        {/* Profile */}
+
+        <motion.button
+          type="button"
+          whileTap={{ scale: 0.97 }}
+          onClick={() => router.push("/profile")}
+          className={`${buttonClass} w-[78px]`}
         >
           <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
           <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
 
           <User
-            size={17}
+            size={20}
             strokeWidth={3}
-            className="
-              relative
-              z-10
-              shrink-0
-              text-white
-            "
+            className="relative z-10 shrink-0"
           />
 
-          <span
-            className="
-              relative
-              z-10
-              text-[10px]
-              font-extrabold
-              leading-none
-            "
-          >
+          <span className="relative z-10">
             Profile
           </span>
         </motion.button>
+                {/* Shop */}
 
         <motion.button
           type="button"
-          onClick={() => router.push("/marketplace")}
           whileTap={{ scale: 0.97 }}
-          className="
-            group
-            relative
-            flex
-            h-12
-            w-[72px]
-            shrink-0
-            items-center
-            justify-center
-            gap-1
-            overflow-hidden
-            rounded-[17px]
-            border
-            border-white/[0.10]
-            bg-gradient-to-b
-            from-[#202020]
-            via-[#121212]
-            to-[#080808]
-            px-2
-            text-[11px]
-            font-extrabold
-            tracking-[-0.2px]
-            text-white
-            shadow-[0_18px_42px_rgba(0,0,0,.62),inset_0_1px_0_rgba(255,255,255,.12)]
-            transition-all
-            duration-300
-            hover:border-white/[0.18]
-          "
+          onClick={() => router.push("/marketplace")}
+          className={`${buttonClass} w-[84px] group`}
         >
           <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
           <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
 
+          {/* Shine */}
+
           <motion.span
             aria-hidden="true"
-            initial={{ x: "-220%", opacity: 0 }}
+            initial={{
+              x: "-220%",
+              opacity: 0,
+            }}
             animate={{
               x: ["-220%", "260%"],
               opacity: [0, 0.35, 0],
@@ -217,28 +218,16 @@ export default function Header() {
           />
 
           <Plus
-            size={17}
+            size={20}
             strokeWidth={3}
-            className="
-              relative
-              z-10
-              shrink-0
-              text-white
-            "
+            className="relative z-10 shrink-0"
           />
 
-          <span
-            className="
-              relative
-              z-10
-              text-[10px]
-              font-extrabold
-              leading-none
-            "
-          >
+          <span className="relative z-10">
             Shop
           </span>
         </motion.button>
+
       </div>
     </header>
   );
