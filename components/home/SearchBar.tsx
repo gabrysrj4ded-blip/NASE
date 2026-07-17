@@ -31,13 +31,13 @@ export default function SearchBar() {
         <motion.div
           className="shrink-0"
           animate={{
-            rotate: [0, 180, 180, 360, 360],
+            rotate: [0, 360, 360],
           }}
           transition={{
-            duration: 5.2,
+            duration: 2.35,
             repeat: Infinity,
             ease: "easeInOut",
-            times: [0, 0.22, 0.46, 0.72, 1],
+            times: [0, 0.15, 1],
           }}
         >
           <Image
