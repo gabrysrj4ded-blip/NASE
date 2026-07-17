@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import {
   Settings,
   User,
-  Plus,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -108,7 +107,7 @@ export default function Header() {
         </div>
       </button>
 
-      {/* Actions */}
+            {/* Actions */}
 
       <div className="ml-3 flex shrink-0 items-center gap-[2px]">
 
@@ -126,29 +125,6 @@ export default function Header() {
             to-transparent
           "
         />
-
-        {/* Settings */}
-
-        <motion.button
-          type="button"
-          whileTap={{ scale: 0.97 }}
-          onClick={() => router.push("/settings")}
-          className={`${buttonClass} w-[78px]`}
-        >
-          <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-
-          <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
-
-          <Settings
-            size={20}
-            strokeWidth={3}
-            className="relative z-10 shrink-0"
-          />
-
-          <span className="relative z-10">
-            Setting
-          </span>
-        </motion.button>
 
         {/* Profile */}
 
@@ -172,59 +148,27 @@ export default function Header() {
             Profile
           </span>
         </motion.button>
-                {/* Shop */}
+
+        {/* Settings */}
 
         <motion.button
           type="button"
           whileTap={{ scale: 0.97 }}
-          onClick={() => router.push("/marketplace")}
-          className={`${buttonClass} w-[84px] group`}
+          onClick={() => router.push("/settings")}
+          className={`${buttonClass} w-[78px]`}
         >
           <span className="pointer-events-none absolute inset-x-2 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
 
           <span className="pointer-events-none absolute left-1/2 top-0 h-8 w-10 -translate-x-1/2 rounded-full bg-white/[0.06] blur-xl" />
 
-          {/* Shine */}
-
-          <motion.span
-            aria-hidden="true"
-            initial={{
-              x: "-220%",
-              opacity: 0,
-            }}
-            animate={{
-              x: ["-220%", "260%"],
-              opacity: [0, 0.35, 0],
-            }}
-            transition={{
-              duration: 1.15,
-              repeat: Infinity,
-              repeatDelay: 5,
-              ease: "easeInOut",
-            }}
-            className="
-              pointer-events-none
-              absolute
-              -bottom-6
-              -top-6
-              w-10
-              -skew-x-[22deg]
-              bg-gradient-to-r
-              from-transparent
-              via-white/90
-              to-transparent
-              blur-[7px]
-            "
-          />
-
-          <Plus
+          <Settings
             size={20}
             strokeWidth={3}
             className="relative z-10 shrink-0"
           />
 
           <span className="relative z-10">
-            Shop
+            Setting
           </span>
         </motion.button>
 
