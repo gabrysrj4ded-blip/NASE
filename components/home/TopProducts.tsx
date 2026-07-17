@@ -5,24 +5,24 @@ import { motion } from "framer-motion";
 
 const categories = [
   {
-    title: "TELEGRAM\nSERVICES",
-    image: "/images/categories/telegram.jpg",
+    title: "NFT",
+    image: "/images/categories/nft.jpg",
   },
   {
     title: "PREMIUM,\nSTARS & GIFTS",
     image: "/images/categories/premium.jpg",
   },
   {
-    title: "NFT",
-    image: "/images/categories/nft.jpg",
-  },
-  {
-    title: "FINANCE",
-    image: "/images/categories/finance.jpg",
+    title: "TELEGRAM\nSERVICES",
+    image: "/images/categories/telegram.jpg",
   },
   {
     title: "AI & TOOLS",
     image: "/images/categories/ai.jpg",
+  },
+  {
+    title: "FINANCE",
+    image: "/images/categories/finance.jpg",
   },
   {
     title: "ADVERTISE\nSERVICES",
@@ -32,25 +32,25 @@ const categories = [
 
 export default function TopProducts() {
   return (
-    <section className="mt-8">
+    <section className="mt-6">
 
       {/* Header */}
 
-      <div className="mb-5">
+      <div className="mb-4">
 
         <h2 className="text-[22px] font-black tracking-wide text-white">
           NASE CENTER
         </h2>
 
-        <p className="mt-1 text-[13px] text-white/45">
+        <p className="mt-0.5 text-[13px] text-white/45">
           Explore all NASE services
         </p>
 
       </div>
 
-      {/* Cards */}
+      {/* Grid */}
 
-      <div className="grid grid-cols-2 gap-[6px]">
+      <div className="grid grid-cols-3 gap-[6px]">
 
         {categories.map((item) => (
 
@@ -58,6 +58,7 @@ export default function TopProducts() {
             key={item.title}
             whileHover={{
               scale: 1.03,
+              y: -2,
             }}
             whileTap={{
               scale: 0.98,
@@ -68,35 +69,37 @@ export default function TopProducts() {
             className="
               group
               relative
-              aspect-square
+
+              h-[155px]
+
               overflow-hidden
-              rounded-[24px]
+              rounded-[22px]
 
               border
               border-white/10
 
               bg-[#111111]
 
-              shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_0_30px_rgba(255,255,255,0.03)]
+              shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_0_24px_rgba(255,255,255,0.03)]
 
               transition-all
               duration-300
 
-              hover:border-white/15
-              hover:shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_0_45px_rgba(255,255,255,0.06)]
+              hover:border-white/20
+              hover:shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_0_45px_rgba(255,255,255,0.07)]
             "
           >
 
-            {/* Background Image */}
+            {/* Image */}
 
             <motion.div
-              className="absolute inset-0"
               whileHover={{
                 scale: 1.08,
               }}
               transition={{
                 duration: 0.35,
               }}
+              className="absolute inset-0"
             >
 
               <Image
@@ -108,7 +111,7 @@ export default function TopProducts() {
 
             </motion.div>
 
-            {/* Black Fade */}
+            {/* Dark Gradient */}
 
             <div
               className="
@@ -120,30 +123,30 @@ export default function TopProducts() {
                 to-transparent
               "
             />
-                        {/* Glow */}
+
+            {/* Premium Glow */}
 
             <div
               className="
                 absolute
                 inset-0
-                rounded-[24px]
+                rounded-[22px]
                 bg-gradient-to-b
-                from-white/[0.04]
+                from-white/[0.05]
                 via-transparent
                 to-transparent
-                opacity-70
+                opacity-80
                 pointer-events-none
               "
             />
-
-            {/* Title */}
+                {/* Title */}
 
             <div
               className="
                 absolute
-                bottom-4
-                left-4
-                right-4
+                bottom-3
+                left-3
+                right-3
                 z-10
               "
             >
@@ -151,9 +154,9 @@ export default function TopProducts() {
                 className="
                   whitespace-pre-line
                   text-left
-                  text-[15px]
+                  text-[13px]
                   font-black
-                  leading-5
+                  leading-4
                   tracking-wide
                   text-white
                 "
@@ -170,4 +173,4 @@ export default function TopProducts() {
 
     </section>
   );
-}
+}        
