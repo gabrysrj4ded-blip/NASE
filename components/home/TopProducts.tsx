@@ -1,68 +1,112 @@
 "use client";
 
-import { products } from "@/lib/products";
-import ProductCard from "./ProductCard";
+import {
+  Gift,
+  Send,
+  LayoutGrid,
+  Megaphone,
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+const categories = [
+  {
+    title: "NFT & GIFTS",
+    icon: Gift,
+  },
+  {
+    title: "TELEGRAM SERVICES",
+    icon: Send,
+  },
+  {
+    title: "OTHER SERVICES",
+    icon: LayoutGrid,
+  },
+  {
+    title: "ADVERTISE SERVICES",
+    icon: Megaphone,
+  },
+];
 
 export default function TopProducts() {
   return (
-    <section className="mt-10">
+    <section className="mt-8">
 
       {/* Header */}
 
       <div className="mb-6 flex items-center justify-between">
 
-        <h2 className="text-[22px] font-semibold text-white">
-          Top Products
+        <h2 className="text-[22px] font-semibold tracking-wide text-white">
+          NASE CENTER
         </h2>
 
       </div>
 
-      {/* Horizontal Scroll */}
+      {/* Grid */}
 
-      <div
-  className="
-    flex
-    gap-4
-    overflow-x-auto
-    overflow-y-hidden
-    pb-5
-    snap-x
-    snap-mandatory
-    touch-pan-x
-    [-ms-overflow-style:none]
-    [scrollbar-width:none]
-  "
-  style={{ WebkitOverflowScrolling: "touch" }}
->
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            title={product.title}
-            image={product.image}
-            bestPrice={product.bestPrice}
-            shops={product.shops}
-          />
-        ))}
+      <div className="grid grid-cols-2 overflow-hidden rounded-[28px] border border-white/10 bg-[#111111]">
+
+        {categories.map((item, index) => {
+          const Icon = item.icon;
+
+          return (
+            <motion.button
+              key={item.title}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className={`
+                relative
+                flex
+                aspect-square
+                flex-col
+                items-center
+                justify-center
+                gap-4
+                transition-colors
+                duration-300
+                hover:bg-white/[0.03]
+
+                ${
+                  index === 0
+                    ? "border-b border-r border-white/10"
+                    : ""
+                }
+
+                ${
+                  index === 1
+                    ? "border-b border-white/10"
+                    : ""
+                }
+
+                ${
+                  index === 2
+                    ? "border-r border-white/10"
+                    : ""
+                }
+              `}
+            >
+              <Icon
+                size={34}
+                strokeWidth={2.8}
+                className="text-white"
+              />
+
+              <span
+                className="
+                  max-w-[120px]
+                  text-center
+                  text-[13px]
+                  font-bold
+                  leading-5
+                  tracking-wide
+                  text-white
+                "
+              >
+                {item.title}
+              </span>
+            </motion.button>
+          );
+        })}
       </div>
-
-      {/* Scroll Indicator */}
-
-      <div className="mt-2 flex justify-center">
-
-        <div
-          className="
-          h-[4px]
-          w-20
-          rounded-full
-          bg-gradient-to-r
-          from-transparent
-          via-white/60
-          to-transparent
-          "
-        />
-
-      </div>
-
     </section>
   );
 }
