@@ -3,27 +3,28 @@
 import Image from "next/image";
 import {
   motion,
+  AnimatePresence,
   PanInfo,
-  useMotionValue,
-  useTransform,
 } from "framer-motion";
-import { useState } from "react";
+import {
+  ChevronUp,
+} from "lucide-react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
-type Service = {
-  title: string;
-  description: string;
-  image: string;
-};
+const HINT_KEY = "nase-wheel-hint";
 
-const services: Service[] = [
+const services = [
   {
     title: "TELEGRAM SERVICES",
     description: "Everything you need for Telegram in one place.",
     image: "/images/categories/telegram.jpg",
   },
   {
-    title: "PREMIUM STARS & GIFTS",
-    description: "Upgrade your account with Stars and Gifts.",
+    title: "PREMIUM STARS",
+    description: "Upgrade your account with Telegram Premium.",
     image: "/images/categories/premium.jpg",
   },
   {
@@ -32,8 +33,8 @@ const services: Service[] = [
     image: "/images/categories/nft.jpg",
   },
   {
-    title: "AI & TOOLS",
-    description: "Powerful AI tools for everyday work.",
+    title: "AI TOOLS",
+    description: "Powerful AI tools inside NASE.",
     image: "/images/categories/ai.jpg",
   },
   {
@@ -43,7 +44,7 @@ const services: Service[] = [
   },
   {
     title: "ADVERTISE",
-    description: "Promote your products inside NASE.",
+    description: "Advertise your products inside NASE.",
     image: "/images/categories/advertise.jpg",
   },
 ];
@@ -51,9 +52,34 @@ const services: Service[] = [
 const DRAG_LIMIT = 55;
 
 export default function NaseGivesYou() {
+
   const [current, setCurrent] = useState(0);
 
-  const dragY = useMotionValue(0);
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+
+    const viewed =
+      localStorage.getItem(HINT_KEY);
+
+    if (!viewed) {
+
+      setShowHint(true);
+
+      localStorage.setItem(
+        HINT_KEY,
+        "true"
+      );
+
+      const timeout =
+        setTimeout(() => {
+          setShowHint(false);
+        }, 3500);
+
+      return () => clearTimeout(timeout);
+    }
+
+  }, []);
 
   const previous =
     current === 0
@@ -66,32 +92,38 @@ export default function NaseGivesYou() {
       : current + 1;
 
   function nextCard() {
-    setCurrent((v) =>
-      v === services.length - 1 ? 0 : v + 1
+
+    setCurrent((prev) =>
+      prev === services.length - 1
+        ? 0
+        : prev + 1
     );
+
   }
 
   function previousCard() {
-    setCurrent((v) =>
-      v === 0 ? services.length - 1 : v - 1
+
+    setCurrent((prev) =>
+      prev === 0
+        ? services.length - 1
+        : prev - 1
     );
+
   }
 
   function handleDragEnd(
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
+
     if (info.offset.y < -DRAG_LIMIT) {
       nextCard();
-      return;
     }
 
     if (info.offset.y > DRAG_LIMIT) {
       previousCard();
-      return;
     }
 
-    dragY.set(0);
   }
 
   const currentItem = services[current];
@@ -99,11 +131,12 @@ export default function NaseGivesYou() {
   const nextItem = services[next];
 
   return (
-    <section className="mt-4">
+
+    <section className="-mt-2">
 
       <h2
         className="
-          mb-3
+          mb-2
           text-[22px]
           font-black
           tracking-tight
@@ -116,7 +149,7 @@ export default function NaseGivesYou() {
       <div
         className="
           relative
-          h-[235px]
+          h-[205px]
           w-full
           overflow-hidden
         "
@@ -124,26 +157,24 @@ export default function NaseGivesYou() {
           perspective: "1700px",
         }}
       >
-              {/* Previous */}
+              {/* Previous Card */}
 
         <motion.div
-          className="absolute left-0 top-0 z-10 w-full"
+          className="absolute left-0 right-0 top-0 z-10"
           animate={{
-            y: 18,
-            scale: 0.92,
-            rotateX: -70,
-            opacity: 0.35,
+            y: 12,
+            scale: 0.93,
+            rotateX: -72,
+            opacity: 0.45,
           }}
           transition={{
-            type: "spring",
-            stiffness: 170,
-            damping: 18,
+            duration: 0.45,
           }}
           style={{
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="relative mx-auto h-[155px] w-[96%] overflow-hidden rounded-[28px]">
+          <div className="relative mx-auto h-[150px] w-[97%] overflow-hidden rounded-[30px]">
             <Image
               src={previousItem.image}
               alt={previousItem.title}
@@ -151,22 +182,18 @@ export default function NaseGivesYou() {
               className="object-cover"
             />
 
-            <div className="absolute inset-0 bg-black/45" />
+            <div className="absolute inset-0 bg-black/55" />
           </div>
         </motion.div>
 
-        {/* Current */}
+        {/* Current Card */}
 
         <motion.div
           drag="y"
           dragConstraints={{ top: 0, bottom: 0 }}
-          dragElastic={0.16}
+          dragElastic={0.18}
           onDragEnd={handleDragEnd}
-          className="absolute left-0 top-1/2 z-30 w-full -translate-y-1/2 cursor-grab active:cursor-grabbing"
-          style={{
-            y: dragY,
-            transformStyle: "preserve-3d",
-          }}
+          className="absolute left-0 right-0 top-1/2 z-30 -translate-y-1/2"
           whileTap={{
             cursor: "grabbing",
           }}
@@ -175,15 +202,14 @@ export default function NaseGivesYou() {
             className="
               relative
               mx-auto
-              h-[175px]
+              h-[170px]
               w-[98%]
               overflow-hidden
-              rounded-[30px]
+              rounded-[32px]
             "
             style={{
-              transform: "translateZ(90px)",
               boxShadow:
-                "0 28px 80px rgba(0,0,0,.55)",
+                "0 24px 70px rgba(0,0,0,.55)",
             }}
           >
             <Image
@@ -196,57 +222,108 @@ export default function NaseGivesYou() {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
-            <div className="absolute bottom-5 left-5 right-5">
+            {/* First Open Hint */}
 
-              <h3
-                className="
-                  text-[26px]
-                  font-black
-                  uppercase
-                  leading-none
-                  tracking-tight
-                  text-white
-                "
-              >
+            <AnimatePresence>
+
+              {showHint && (
+
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: [-2, -12, -2],
+                  }}
+                  exit={{
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.9,
+                    repeat: 3,
+                  }}
+                  className="absolute left-1/2 top-5 -translate-x-1/2"
+                >
+                  <ChevronUp
+                    size={26}
+                    strokeWidth={1.8}
+                    className="text-white"
+                  />
+                </motion.div>
+
+              )}
+
+            </AnimatePresence>
+
+            {/* Vertical Indicator */}
+
+            <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
+
+              {services.map((_, index) => (
+
+                <motion.div
+                  key={index}
+                  animate={{
+                    height:
+                      current === index
+                        ? 14
+                        : 7,
+                    width:
+                      current === index
+                        ? 7
+                        : 7,
+                    opacity:
+                      current === index
+                        ? 1
+                        : 0.3,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                  }}
+                  className="rounded-full bg-white"
+                />
+
+              ))}
+
+            </div>
+
+            {/* Text */}
+
+            <div className="absolute bottom-5 left-5 right-10">
+
+              <h3 className="text-[25px] font-black uppercase leading-none text-white">
                 {currentItem.title}
               </h3>
 
-              <p
-                className="
-                  mt-2
-                  max-w-[80%]
-                  text-[13px]
-                  leading-5
-                  text-zinc-300
-                "
-              >
+              <p className="mt-2 max-w-[82%] text-[13px] leading-5 text-white/80">
                 {currentItem.description}
               </p>
 
             </div>
+
           </div>
         </motion.div>
 
-        {/* Next */}
+        {/* Next Card */}
 
         <motion.div
-          className="absolute bottom-0 left-0 z-10 w-full"
+          className="absolute bottom-0 left-0 right-0 z-10"
           animate={{
-            y: -18,
-            scale: 0.92,
-            rotateX: 70,
-            opacity: 0.35,
+            y: -12,
+            scale: 0.93,
+            rotateX: 72,
+            opacity: 0.45,
           }}
           transition={{
-            type: "spring",
-            stiffness: 170,
-            damping: 18,
+            duration: 0.45,
           }}
           style={{
             transformStyle: "preserve-3d",
           }}
         >
-          <div className="relative mx-auto h-[155px] w-[96%] overflow-hidden rounded-[28px]">
+          <div className="relative mx-auto h-[150px] w-[97%] overflow-hidden rounded-[30px]">
             <Image
               src={nextItem.image}
               alt={nextItem.title}
@@ -254,12 +331,14 @@ export default function NaseGivesYou() {
               className="object-cover"
             />
 
-            <div className="absolute inset-0 bg-black/45" />
+            <div className="absolute inset-0 bg-black/55" />
           </div>
         </motion.div>
 
       </div>
 
     </section>
+
   );
+
 }
