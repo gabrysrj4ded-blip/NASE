@@ -55,18 +55,16 @@ const sellers = [
 
 export default function TopSellers() {
   return (
-    <section className="w-full py-1">
-      <div className="mb-5 flex items-end justify-between">
-        <div>
-          <h2 className="text-[26px] font-black tracking-[-0.04em] text-white">
-            TOP SELLERS
-          </h2>
-        </div>
+    <section className="w-full -mt-[10px] pb-1">
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="leading-none text-[26px] font-black tracking-[-0.04em] text-white">
+          TOP SELLERS
+        </h2>
 
         <motion.button
           type="button"
           whileTap={{ scale: 0.96 }}
-          className="group mb-1 flex items-center gap-1 text-[12px] font-bold text-white/45 transition-colors hover:text-white"
+          className="group flex items-center gap-1 text-[12px] font-bold text-white/45 transition-colors duration-300 hover:text-white"
         >
           View All
 
@@ -77,8 +75,7 @@ export default function TopSellers() {
           />
         </motion.button>
       </div>
-
-      <div
+            <div
         className="
           -mx-5
           flex
@@ -195,8 +192,7 @@ export default function TopSellers() {
                   className="shrink-0 fill-[#38bdf8] text-[#38bdf8]"
                 />
               </div>
-
-              <div className="mt-3 flex items-center justify-between">
+                            <div className="mt-3 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <Star
                     size={15}
@@ -230,7 +226,7 @@ export default function TopSellers() {
                   items-center
                   justify-center
                   gap-2.5
-                  rounded
+                  rounded-full
                   border
                   border-white/[0.10]
                   bg-gradient-to-b
@@ -246,7 +242,10 @@ export default function TopSellers() {
               >
                 View Shop
 
-                <ChevronRight size={15} strokeWidth={2.8} />
+                <ChevronRight
+                  size={15}
+                  strokeWidth={2.8}
+                />
               </motion.button>
             </div>
           </motion.article>
