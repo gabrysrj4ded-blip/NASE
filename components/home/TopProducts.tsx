@@ -259,7 +259,7 @@ export default function NaseGivesYou() {
 
             {/* Vertical Indicator */}
 
-            <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
+            <div className="absolute right-4 top-[38%] flex -translate-y-1/2 flex-col gap-2">
 
               {services.map((_, index) => (
 
