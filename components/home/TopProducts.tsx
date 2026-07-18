@@ -6,9 +6,7 @@ import {
   AnimatePresence,
   PanInfo,
 } from "framer-motion";
-import {
-  ChevronUp,
-} from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import {
   useEffect,
   useState,
@@ -55,7 +53,10 @@ export default function NaseGivesYou() {
 
   const [current, setCurrent] = useState(0);
 
-  const [showHint, setShowHint] = useState(false);
+  const [direction, setDirection] = useState(0);
+
+  const [showHint, setShowHint] =
+    useState(false);
 
   useEffect(() => {
 
@@ -73,25 +74,21 @@ export default function NaseGivesYou() {
 
       const timeout =
         setTimeout(() => {
+
           setShowHint(false);
+
         }, 3500);
 
-      return () => clearTimeout(timeout);
+      return () =>
+        clearTimeout(timeout);
+
     }
 
   }, []);
 
-  const previous =
-    current === 0
-      ? services.length - 1
-      : current - 1;
-
-  const next =
-    current === services.length - 1
-      ? 0
-      : current + 1;
-
   function nextCard() {
+
+    setDirection(-1);
 
     setCurrent((prev) =>
       prev === services.length - 1
@@ -102,6 +99,8 @@ export default function NaseGivesYou() {
   }
 
   function previousCard() {
+
+    setDirection(1);
 
     setCurrent((prev) =>
       prev === 0
@@ -126,17 +125,43 @@ export default function NaseGivesYou() {
 
   }
 
-  const currentItem = services[current];
-  const previousItem = services[previous];
-  const nextItem = services[next];
+  const currentItem =
+    services[current];
 
-  return (
+  const cardVariants = {
+
+    enter: (direction: number) => ({
+      y:
+        direction > 0
+          ? -70
+          : 70,
+      opacity: 0,
+      scale: 0.96,
+    }),
+
+    center: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+    },
+
+    exit: (direction: number) => ({
+      y:
+        direction > 0
+          ? 70
+          : -70,
+      opacity: 0,
+      scale: 0.96,
+    }),
+
+  };
+    return (
 
     <section className="-mt-2">
 
       <h2
         className="
-          mb-2
+          mb-[2px]
           translate-y-[3px]
           text-[22px]
           font-black
@@ -150,191 +175,144 @@ export default function NaseGivesYou() {
       <div
         className="
           relative
-          h-[205px]
+          h-[190px]
           w-full
           overflow-hidden
         "
-        style={{
-          perspective: "1700px",
-        }}
       >
-              {/* Previous Card */}
 
-        <motion.div
-          className="absolute left-0 right-0 top-0 z-10"
-          animate={{
-            y: 12,
-            scale: 0.93,
-            rotateX: -72,
-            opacity: 0.45,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
+        <AnimatePresence
+          custom={direction}
+          mode="wait"
         >
-          <div className="relative mx-auto h-[150px] w-[97%] overflow-hidden rounded-[30px]">
-            <Image
-              src={previousItem.image}
-              alt={previousItem.title}
-              fill
-              className="object-cover"
-            />
 
-            <div className="absolute inset-0 bg-black/55" />
-          </div>
-        </motion.div>
-
-        {/* Current Card */}
-
-        <motion.div
-          drag="y"
-          dragConstraints={{ top: 0, bottom: 0 }}
-          dragElastic={0.18}
-          onDragEnd={handleDragEnd}
-          className="absolute left-0 right-0 top-[36%] z-30 -translate-y-1/2"
-          whileTap={{
-            cursor: "grabbing",
-          }}
-        >
-          <div
-            className="
-              relative
-              mx-auto
-              h-[170px]
-              w-[98%]
-              overflow-hidden
-              rounded-[32px]
-            "
-            style={{
-              boxShadow:
-                "0 24px 70px rgba(0,0,0,.55)",
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={cardVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              duration: 0.32,
+              ease: [0.22, 1, 0.36, 1],
             }}
+            drag="y"
+            dragConstraints={{
+              top: 0,
+              bottom: 0,
+            }}
+            dragElastic={0.18}
+            onDragEnd={handleDragEnd}
+            whileTap={{
+              cursor: "grabbing",
+            }}
+            className="absolute inset-0"
           >
-            <Image
-              src={currentItem.image}
-              alt={currentItem.title}
-              fill
-              priority
-              className="object-cover"
-            />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            <div
+              className="
+                relative
+                mx-auto
+                h-[170px]
+                w-[98%]
+                overflow-hidden
+                rounded-[32px]
+              "
+              style={{
+                boxShadow:
+                  "0 24px 70px rgba(0,0,0,.55)",
+              }}
+            >
 
-            {/* First Open Hint */}
+              <Image
+                src={currentItem.image}
+                alt={currentItem.title}
+                fill
+                priority
+                className="object-cover"
+              />
 
-            <AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
-              {showHint && (
+              <AnimatePresence>
 
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: [-2, -12, -2],
-                  }}
-                  exit={{
-                    opacity: 0,
-                  }}
-                  transition={{
-                    duration: 0.9,
-                    repeat: 3,
-                  }}
-                  className="absolute left-1/2 top-5 -translate-x-1/2"
-                >
-                  <ChevronUp
-                    size={26}
-                    strokeWidth={1.8}
-                    className="text-white"
+                {showHint && (
+
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: [-2, -12, -2],
+                    }}
+                    exit={{
+                      opacity: 0,
+                    }}
+                    transition={{
+                      duration: 0.9,
+                      repeat: 3,
+                    }}
+                    className="absolute left-1/2 top-5 -translate-x-1/2"
+                  >
+
+                    <ChevronUp
+                      size={26}
+                      strokeWidth={1.8}
+                      className="text-white"
+                    />
+
+                  </motion.div>
+
+                )}
+
+              </AnimatePresence>
+
+              <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
+
+                {services.map((_, index) => (
+
+                  <motion.div
+                    key={index}
+                    animate={{
+                      height:
+                        current === index
+                          ? 14
+                          : 7,
+                      opacity:
+                        current === index
+                          ? 1
+                          : 0.3,
+                    }}
+                    transition={{
+                      duration: 0.25,
+                    }}
+                    className="w-[7px] rounded-full bg-white"
                   />
-                </motion.div>
 
-              )}
+                ))}
 
-            </AnimatePresence>
+              </div>
 
-            {/* Vertical Indicator */}
+              <div className="absolute bottom-5 left-3 right-10">
 
-            <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
+                <h3 className="text-[25px] font-black uppercase leading-none text-white">
+                  {currentItem.title}
+                </h3>
 
-              {services.map((_, index) => (
+                <p className="mt-2 max-w-[88%] text-[13px] leading-5 text-white/80">
+                  {currentItem.description}
+                </p>
 
-                <motion.div
-                  key={index}
-                  animate={{
-                    height:
-                      current === index
-                        ? 14
-                        : 7,
-                    width:
-                      current === index
-                        ? 7
-                        : 7,
-                    opacity:
-                      current === index
-                        ? 1
-                        : 0.3,
-                  }}
-                  transition={{
-                    duration: 0.25,
-                  }}
-                  className="rounded-full bg-white"
-                />
-
-              ))}
+              </div>
 
             </div>
 
-            {/* Text */}
+          </motion.div>
 
-            <div className="absolute bottom-5 left-5 right-10">
-
-              <h3 className="text-[25px] font-black uppercase leading-none text-white">
-                {currentItem.title}
-              </h3>
-
-              <p className="mt-2 max-w-[82%] text-[13px] leading-5 text-white/80">
-                {currentItem.description}
-              </p>
-
-            </div>
-
-          </div>
-        </motion.div>
-
-        {/* Next Card */}
-
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 z-10"
-          animate={{
-            y: -12,
-            scale: 0.93,
-            rotateX: 72,
-            opacity: 0.45,
-          }}
-          transition={{
-            duration: 0.45,
-          }}
-          style={{
-            transformStyle: "preserve-3d",
-          }}
-        >
-          <div className="relative mx-auto h-[150px] w-[97%] overflow-hidden rounded-[30px]">
-            <Image
-              src={nextItem.image}
-              alt={nextItem.title}
-              fill
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-black/55" />
-          </div>
-        </motion.div>
+        </AnimatePresence>
 
       </div>
 
