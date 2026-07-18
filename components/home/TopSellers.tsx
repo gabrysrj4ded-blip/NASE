@@ -19,7 +19,7 @@ const sellers = [
     badge: "TOP",
     rating: "4.9",
     sales: "12.4K Sales",
-    accent: "from-neutral-200 via-neutral-400 to-neutral-700",
+    accent: "from-[#ffb36b] via-[#ff8a3d] to-[#ff5a1f]",
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const sellers = [
     badge: "PRO",
     rating: "4.8",
     sales: "9.8K Sales",
-    accent: "from-zinc-300 via-zinc-500 to-zinc-800",
+    accent: "from-[#8b5cf6] via-[#6d28d9] to-[#4c1d95]",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const sellers = [
     badge: "TOP",
     rating: "4.9",
     sales: "18.1K Sales",
-    accent: "from-slate-300 via-slate-500 to-slate-900",
+    accent: "from-[#38bdf8] via-[#0ea5e9] to-[#0369a1]",
   },
 ];
 
