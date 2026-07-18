@@ -55,8 +55,8 @@ const sellers = [
 
 export default function TopSellers() {
   return (
-    <section className="w-full pb-1 pt-[2px]">
-      <div className="mb-[6px] flex items-center justify-between">
+    <section className="w-full pb-1 pt-0">
+      <div className="mb-1 -translate-y-[2px] flex items-center justify-between">
         <h2 className="text-[26px] font-black leading-none tracking-[-0.04em] text-white">
           TOP SELLERS
         </h2>
@@ -75,10 +75,11 @@ export default function TopSellers() {
           />
         </motion.button>
       </div>
-            <div
+
+      <div
         className="
           -mx-5
-          -mt-[2px]
+          -mt-[4px]
           flex
           snap-x
           snap-mandatory
@@ -90,7 +91,7 @@ export default function TopSellers() {
           [&::-webkit-scrollbar]:hidden
         "
       >
-        {sellers.map((seller) => (
+                {sellers.map((seller) => (
           <motion.article
             key={seller.id}
             whileHover={{ y: -3 }}
@@ -225,12 +226,13 @@ export default function TopSellers() {
                 className="
                   mt-5
                   flex
-                  h-[42px]
+                  h-[44px]
                   w-full
                   items-center
                   justify-center
                   gap-2.5
-                  rounded-[9999px]
+                  overflow-hidden
+                  rounded-full
                   border
                   border-white/[0.10]
                   bg-gradient-to-b
@@ -243,7 +245,6 @@ export default function TopSellers() {
                   text-black
                   shadow-[0_10px_24px_rgba(0,0,0,0.28)]
                 "
-                style={{ borderRadius: "9999px" }}
               >
                 View Shop
 
