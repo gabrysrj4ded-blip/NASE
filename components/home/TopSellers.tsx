@@ -58,11 +58,7 @@ export default function TopSellers() {
     <section className="w-full py-1">
       <div className="mb-5 flex items-end justify-between">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.34em] text-white/35">
-            Discover
-          </p>
-
-          <h2 className="mt-1 text-[26px] font-black tracking-[-0.04em] text-white">
+          <h2 className="text-[26px] font-black tracking-[-0.04em] text-white">
             TOP SELLERS
           </h2>
         </div>
@@ -91,7 +87,7 @@ export default function TopSellers() {
           gap-4
           overflow-x-auto
           px-5
-          pb-3
+          pb-1
           [scrollbar-width:none]
           [&::-webkit-scrollbar]:hidden
         "
@@ -229,21 +225,23 @@ export default function TopSellers() {
                 className="
                   mt-5
                   flex
-                  h-11
+                  h-10
                   w-full
                   items-center
                   justify-center
-                  gap-2
-                  rounded-[15px]
+                  gap-2.5
+                  rounded
                   border
                   border-white/[0.10]
-                  bg-white
+                  bg-gradient-to-b
+                  from-white
+                  to-[#ececec]
                   text-[12px]
                   font-black
                   uppercase
                   tracking-[0.14em]
                   text-black
-                  shadow-[0_12px_28px_rgba(0,0,0,0.35)]
+                  shadow-[0_10px_24px_rgba(0,0,0,0.28)]
                 "
               >
                 View Shop
