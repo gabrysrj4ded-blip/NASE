@@ -87,7 +87,6 @@ export default function TopSellers() {
           overflow-x-auto
           px-5
           pb-1
-          pl-5
           [scrollbar-width:none]
           [&::-webkit-scrollbar]:hidden
         "
