@@ -257,3 +257,10 @@ export default function TopSellers() {
 </section>
   );
 }
+export default function TopSellers() {
+  return (
+    <div className="h-40 bg-red-500 text-white flex items-center justify-center rounded-3xl">
+      TOP SELLERS
+    </div>
+  );
+}
