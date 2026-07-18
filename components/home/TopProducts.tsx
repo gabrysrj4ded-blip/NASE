@@ -193,7 +193,7 @@ export default function NaseGivesYou() {
           dragConstraints={{ top: 0, bottom: 0 }}
           dragElastic={0.18}
           onDragEnd={handleDragEnd}
-          className="absolute left-0 right-0 top-1/2 z-30 -translate-y-1/2"
+          className="absolute left-0 right-0 top-[40%] z-30 -translate-y-1/2"
           whileTap={{
             cursor: "grabbing",
           }}
