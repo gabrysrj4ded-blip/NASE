@@ -137,6 +137,7 @@ export default function NaseGivesYou() {
       <h2
         className="
           mb-2
+          translate-y-[2px]
           text-[22px]
           font-black
           tracking-tight
