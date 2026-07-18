@@ -193,7 +193,7 @@ export default function NaseGivesYou() {
           dragConstraints={{ top: 0, bottom: 0 }}
           dragElastic={0.18}
           onDragEnd={handleDragEnd}
-          className="absolute left-0 right-0 top-[40%] z-30 -translate-y-1/2"
+          className="absolute left-0 right-0 top-[36%] z-30 -translate-y-1/2"
           whileTap={{
             cursor: "grabbing",
           }}
@@ -259,7 +259,7 @@ export default function NaseGivesYou() {
 
             {/* Vertical Indicator */}
 
-            <div className="absolute right-4 top-[38%] flex -translate-y-1/2 flex-col gap-2">
+            <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
 
               {services.map((_, index) => (
 
