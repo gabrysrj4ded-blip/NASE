@@ -55,9 +55,9 @@ const sellers = [
 
 export default function TopSellers() {
   return (
-    <section className="w-full -mt-[18px] pb-1">
-      <div className="mb-1 flex items-center justify-between">
-        <h2 className="leading-none text-[26px] font-black tracking-[-0.04em] text-[#FFFFFF]">
+    <section className="w-full pb-1 pt-[4px]">
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="text-[26px] font-black leading-none tracking-[-0.04em] text-white">
           TOP SELLERS
         </h2>
 
@@ -192,8 +192,7 @@ export default function TopSellers() {
                   className="shrink-0 fill-[#38bdf8] text-[#38bdf8]"
                 />
               </div>
-            
-                          <div className="mt-3 flex items-center justify-between">
+                            <div className="mt-3 flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <Star
                     size={15}
@@ -230,7 +229,7 @@ export default function TopSellers() {
                   items-center
                   justify-center
                   gap-2.5
-                  rounded-[9999px]
+                  rounded-full
                   border
                   border-white/[0.10]
                   bg-gradient-to-b
@@ -242,7 +241,6 @@ export default function TopSellers() {
                   tracking-[0.14em]
                   text-black
                   shadow-[0_10px_24px_rgba(0,0,0,0.28)]
-                  overflow-hidden
                 "
               >
                 View Shop
