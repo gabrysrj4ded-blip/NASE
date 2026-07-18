@@ -82,7 +82,6 @@ export default function TopSellers() {
           -mt-[4px]
           flex
           snap-x
-          snap-proximity
           gap-4
           overflow-x-auto
           px-5
