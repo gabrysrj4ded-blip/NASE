@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import HeroBanner from "./HeroBanner";
 import TopSellers from "./TopSellers";
 import TopProducts from "./TopProducts";
+import TopSellers from "./TopSellers";
 
 import { SectionDivider } from "@/components/ui";
 
