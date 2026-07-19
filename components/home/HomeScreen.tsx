@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import HeroBanner from "./HeroBanner";
 import TopSellers from "./TopSellers";
 import TopProducts from "./TopProducts";
+import BottomNavigation from "./BottomNavigation";
 
 import { SectionDivider } from "@/components/ui";
 
@@ -26,6 +27,8 @@ export default function HomeScreen() {
       <SectionDivider />
 
       <TopProducts />
+
+      <BottomNavigation />
     </main>
   );
 }
