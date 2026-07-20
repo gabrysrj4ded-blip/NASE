@@ -50,7 +50,6 @@ const services = [
 const DRAG_LIMIT = 55;
 
 export default function NaseGivesYou() {
-
   const [current, setCurrent] = useState(0);
 
   const [direction, setDirection] = useState(0);
@@ -59,12 +58,10 @@ export default function NaseGivesYou() {
     useState(false);
 
   useEffect(() => {
-
     const viewed =
       localStorage.getItem(HINT_KEY);
 
     if (!viewed) {
-
       setShowHint(true);
 
       localStorage.setItem(
@@ -74,20 +71,15 @@ export default function NaseGivesYou() {
 
       const timeout =
         setTimeout(() => {
-
           setShowHint(false);
-
         }, 3500);
 
       return () =>
         clearTimeout(timeout);
-
     }
-
   }, []);
 
   function nextCard() {
-
     setDirection(-1);
 
     setCurrent((prev) =>
@@ -95,11 +87,9 @@ export default function NaseGivesYou() {
         ? 0
         : prev + 1
     );
-
   }
 
   function previousCard() {
-
     setDirection(1);
 
     setCurrent((prev) =>
@@ -107,14 +97,12 @@ export default function NaseGivesYou() {
         ? services.length - 1
         : prev - 1
     );
-
   }
 
   function handleDragEnd(
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) {
-
     if (info.offset.y < -DRAG_LIMIT) {
       nextCard();
     }
@@ -122,55 +110,24 @@ export default function NaseGivesYou() {
     if (info.offset.y > DRAG_LIMIT) {
       previousCard();
     }
-
   }
 
   const currentItem =
     services[current];
 
   const cardVariants = {
+      };
 
-    enter: (direction: number) => ({
-      y:
-        direction > 0
-          ? -70
-          : 70,
-      opacity: 0,
-      scale: 0.96,
-    }),
+  return (
+    <section className="w-full pt-1 pb-1">
 
-    center: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-    },
+      <div className="mb-3 flex items-center justify-between">
 
-    exit: (direction: number) => ({
-      y:
-        direction > 0
-          ? 70
-          : -70,
-      opacity: 0,
-      scale: 0.96,
-    }),
+        <h2 className="text-[26px] font-black tracking-[-0.04em] text-white">
+          NASE GIVES YOU
+        </h2>
 
-  };
-    return (
-
-    <section className="-mt-2">
-
-      <h2
-        className="
-          mb-[2px]
-          translate-y-[3px]
-          text-[22px]
-          font-black
-          tracking-tight
-          text-white
-        "
-      >
-        NASE GIVES YOU
-      </h2>
+      </div>
 
       <div
         className="
@@ -234,11 +191,8 @@ export default function NaseGivesYou() {
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-
-              <AnimatePresence>
-
+                            <AnimatePresence>
                 {showHint && (
-
                   <motion.div
                     initial={{
                       opacity: 0,
@@ -257,23 +211,17 @@ export default function NaseGivesYou() {
                     }}
                     className="absolute left-1/2 top-5 -translate-x-1/2"
                   >
-
                     <ChevronUp
                       size={26}
                       strokeWidth={1.8}
                       className="text-white"
                     />
-
                   </motion.div>
-
                 )}
-
               </AnimatePresence>
 
               <div className="absolute right-4 top-1/2 flex -translate-y-1/2 flex-col gap-2">
-
                 {services.map((_, index) => (
-
                   <motion.div
                     key={index}
                     animate={{
@@ -291,13 +239,10 @@ export default function NaseGivesYou() {
                     }}
                     className="w-[7px] rounded-full bg-white"
                   />
-
                 ))}
-
               </div>
 
               <div className="absolute bottom-5 left-3 right-10">
-
                 <h3 className="text-[25px] font-black uppercase leading-none text-white">
                   {currentItem.title}
                 </h3>
@@ -305,7 +250,6 @@ export default function NaseGivesYou() {
                 <p className="mt-2 max-w-[88%] text-[13px] leading-5 text-white/80">
                   {currentItem.description}
                 </p>
-
               </div>
 
             </div>
@@ -319,5 +263,4 @@ export default function NaseGivesYou() {
     </section>
 
   );
-
 }
